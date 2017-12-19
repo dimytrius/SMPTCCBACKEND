@@ -10,9 +10,9 @@ var consign = require('consign');
 var app = express();
 
 consign()
-    .include('../routes')
-    .then('../models')
-    .then('../controllers')
+    .include('app/routes')
+    .then('app/models')
+    .then('app/controllers')
     .into(app);
 
 
