@@ -3,9 +3,9 @@ var axios = require('axios');
 //var lat = response.data.data[0].latitude
 
 setInterval(() =>{
-    axios.get('https://automi-api.herokuapp.com')
+    axios.get('https://www.automi-api.herokuapp.com')
         .then((response) =>{
-            console.log(response.content)
+            console.log(response.data.data[0])
         })
         .catch((error) =>{
             console.log(error)
