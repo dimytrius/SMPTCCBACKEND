@@ -1,15 +1,17 @@
 var axios = require('axios');
-
-//var lat = response.data.data[0].latitude
-
 setInterval(() =>{
     axios.get('https://www.automi-api.herokuapp.com')
-        .then((response) =>{
-            console.log(response.data.data[0])
+        .then((result) =>{
+            var lat = result.data.data[0].latitude
+            var long = result.data.data[0].longitude
+            console.log(lat)
+            console.log(long)
+            
         })
         .catch((error) =>{
             console.log(error)
         })
+            
 }, 1200);
 
 // const sgMail = require('@sendgrid/mail');
