@@ -1,6 +1,6 @@
 # API - Sigfox Node
 
-- [] Implementar SendGrid;
+- [x] Implementar SendGrid;
 - [] Implementar rotas express;
 - [] Implementar Auth rede sigfox;
 
