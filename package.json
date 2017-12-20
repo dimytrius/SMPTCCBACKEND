@@ -9,6 +9,7 @@
   "author": "Lucas Fonseca",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "axios": "^0.17.1",
     "consign": "^0.1.6",
     "express": "^4.16.2",
