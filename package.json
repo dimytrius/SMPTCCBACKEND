@@ -9,6 +9,7 @@
   "author": "Lucas Fonseca",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
     "consign": "^0.1.6",
     "express": "^4.16.2",
     "hapi": "^17.1.1",
