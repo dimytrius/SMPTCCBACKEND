@@ -11,10 +11,13 @@
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
     "axios": "^0.17.1",
+    "basic-auth": "^2.0.0",
+    "basic-auth-connect": "^1.0.0",
     "consign": "^0.1.6",
     "express": "^4.16.2",
     "hapi": "^17.1.1",
     "nodemon": "^1.13.3",
-    "sendgrid": "^5.2.3"
+    "sendgrid": "^5.2.3",
+    "winston": "^2.4.0"
   }
 }
