@@ -25,6 +25,9 @@ setInterval(() =>{
             if(status=='13'){
                 //sgMail.send(msg);
                 console.log("email") 
+                setTimeout(function() {
+                    console.log("delay para test")
+                }, 300000);
                    
             }
            
