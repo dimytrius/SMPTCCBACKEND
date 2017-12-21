@@ -1,6 +1,7 @@
 var axios = require('axios');
 var cont;
 const sgMail = require('@sendgrid/mail');
+var sleep = require('sleep');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 setInterval(() =>{
     axios.get('http://automi-api.herokuapp.com/')
@@ -25,9 +26,9 @@ setInterval(() =>{
             if(status=='13'){
                 sgMail.send(msg);
                 console.log("email") 
-                setTimeout(function() {
-                    console.log("delay para test")
-                }, 300000);
+                sleep.msleep(30000);
+                console.log("delay");
+                
                    
             }
            
