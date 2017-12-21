@@ -1,8 +1,18 @@
+/*
+Author: Dimytrius Rocha
+Version: 0.0.1
+Date: 20/12/17
+*/
+
 var axios = require('axios');
 var cont;
-const sgMail = require('@sendgrid/mail');
 var sleep = require('sleep');
+
+const sgMail = require('@sendgrid/mail');
+
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 setInterval(() =>{
     axios.get('http://automi-api.herokuapp.com/')
         .then((response) =>{

@@ -18,6 +18,10 @@
     "hapi": "^17.1.1",
     "nodemon": "^1.13.3",
     "sendgrid": "^5.2.3",
+<<<<<<< HEAD
     "winston": "^2.4.0"
+=======
+    "sleep": "^5.1.1"
+>>>>>>> a9d64ff3cadb0984a552cbf25aea835e2ed0316a
   }
 }
