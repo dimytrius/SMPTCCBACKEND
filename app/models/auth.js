@@ -1,9 +1,10 @@
-var request = require('request'),
+var request = require('request-promise');
     username = "59f874e19e93a14edbf55ccd",
     password = "da1d5d3a093ad05f59e7827c26b6a6af",
     auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+function get_device_list(){
 
-request(
+    request(
     {
         url : "https://backend.sigfox.com/api/devicetypes",
         headers : {
@@ -11,23 +12,37 @@ request(
         }
     },
     function (error, response, body) {
-        //onsole.log(body);
-        //console.log('statusCode:', response && response.statusCode);  
+        console.log(body);
+        console.log('statusCode:', response && response.statusCode);  
     }
-);
+);}
+function get_message(device_id){
 
-request(
-    {
-        url : 'https://backend.sigfox.com/api/devicetypes/59f86c293c87894c07cf4984/messages?limit=2',
-        headers : {
+      
+      var options = {
+          uri: 'https://backend.sigfox.com/api/devicetypes/'+device_id+'/messages?limit=2',
+          headers: {
             "Authorization" : auth
-        }
-    },
-    function (error, response, body) {
-        var device = JSON.stringify(body);
-        //console.log(data[1]);
-       
-    
-        //console.log('statusCode:', response && response.statusCode);  
+          }
+      } 
+        return request(options).catch(function(erro){
+
+        }); 
     }
-);
+
+function coordenat_data(device_id){
+    
+    get_message(device_id).then(function(response){
+        device = JSON.stringify(response);
+        console.log(device);
+    })
+    
+
+        //var n = dados.search('data');
+        //console.log(device);
+        //console.log(dados);
+
+}
+//get_device_list();
+
+coordenat_data('59f86c293c87894c07cf4984');
