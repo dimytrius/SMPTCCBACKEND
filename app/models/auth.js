@@ -1,4 +1,6 @@
+var strftime = require('strftime');
 var request = require('request-promise');
+var converter = require('hex2dec');
     username = "59f874e19e93a14edbf55ccd",
     password = "da1d5d3a093ad05f59e7827c26b6a6af",
     auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
@@ -34,15 +36,32 @@ function coordenat_data(device_id){
     
     get_message(device_id).then(function(response){
         device = JSON.stringify(response);
-        console.log(device);
+        var index = device.indexOf('data');
+        var tamanho = device.length;
+        var a = device.substring(index+7,tamanho);
+        var index1 = a.indexOf('data');
+        var data = a.substring(index1+9,index1+33);
+        var devicename = a.substring(15,21);
+        var index2 = a.indexOf('time');
+        var hourcrip = a.substring(index2+7,index2+17);
+        var hour = strftime('%B %d, %Y %H:%M:%S', new Date(hourcrip));
+        var lathex =  data.substring(4,12);
+        var lnghex = data.substring(12,20);
+        var lat = converter.hexToDec(lathex);
+        var lng = converter.hexToDec(lnghex);
+        var status = data.substring(0,4);
+        console.log("Device name:" + devicename);
+        console.log("Status:" + status);
+        console.log("Data:" + data);
+        console.log("Hour:" + hour);
+        console.log("Lat:"+ lat);
+        console.log("lng:"+ lng);
+        console.log(new Date(hourcrip));
     })
-    
-
-        //var n = dados.search('data');
-        //console.log(device);
-        //console.log(dados);
 
 }
+
+
 //get_device_list();
 
 coordenat_data('59f86c293c87894c07cf4984');
