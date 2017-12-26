@@ -11,20 +11,24 @@
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
     "axios": "^0.17.1",
+    "baseconvert": "^1.0.0",
     "basic-auth": "^2.0.0",
     "basic-auth-connect": "^1.0.0",
+    "bufferpack": "0.0.6",
     "consign": "^0.1.6",
     "dateformat": "^3.0.2",
     "express": "^4.16.2",
     "firebase": "^4.8.1",
     "hapi": "^17.1.1",
     "hex2dec": "^1.0.1",
+    "int64-native": "^0.4.0",
     "node-datetime": "^2.0.3",
     "nodemon": "^1.13.3",
     "request-promise": "^4.2.2",
     "sendgrid": "^5.2.3",
     "sleep": "^5.1.1",
     "strftime": "^0.10.0",
+    "unix-time": "^1.0.1",
     "winston": "^2.4.0"
   }
 }
