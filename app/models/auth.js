@@ -1,3 +1,4 @@
+var sleep = require('sleep');
 var firebase = require('firebase');
 var fs = require('fs');
 var unixTime = require('unix-time');
@@ -122,7 +123,7 @@ function coordenat_data(device_id){
                 obj = JSON.parse(data); //now it an object
                 obj.data.push({date: date, hour: hour,status:status,latitude:lathex,longitude:lnghex,device:devicename,battery:battery}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('jsonloads.json', json, 'utf8'); // write it back 
+                return json; // write it back 
             }});
              
         }
@@ -150,7 +151,7 @@ function coordenat_data(device_id){
                 obj = JSON.parse(data); //now it an object
                 obj.data.push({date: date, hour: hour,status:status,latitude:latstatus13,longitude:lngstatus13,device:devicename,battery:null}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('jsonloads.json', json, 'utf8'); // write it back 
+                console.log (json); // write it back 
             }});
              
         }
@@ -178,7 +179,7 @@ function coordenat_data(device_id){
                 obj = JSON.parse(data); //now it an object
                 obj.data.push({date: date, hour: hour,status:status,latitude:latstatus13,longitude:lngstatus13,device:devicename,battery:null}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('jsonloads.json', json, 'utf8'); // write it back 
+                return json; // write it back 
             }});
              
         }
@@ -206,7 +207,7 @@ function coordenat_data(device_id){
                 obj = JSON.parse(data); //now it an object
                 obj.data.push({date: date, hour: hour,status:status,latitude:latstatus13,longitude:lngstatus13,device:devicename,battery:null}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('jsonloads.json', json, 'utf8'); // write it back 
+                return json; // write it back 
             }});
              
         }
@@ -222,6 +223,7 @@ function coordenat_data(device_id){
 
 setInterval( () =>{
 coordenat_data('59f86c293c87894c07cf4984');
+
 },10000);
 
 

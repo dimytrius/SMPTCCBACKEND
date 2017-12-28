@@ -1,5 +1,5 @@
-module.exports = (Application) => {
+module.exports = (application) => {
     application.post('/json', (res, req) => {
-        application.app.controllers.sendmail.auth(application, req, res);
+        application.app.controllers.authentication.auth(application, req, res);
     });
 }
