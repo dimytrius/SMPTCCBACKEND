@@ -155,9 +155,6 @@ function coordenat_data(device_id){
 
 //get_device_list();
 
-//coordenat_data('59f86c293c87894c07cf4984');
+coordenat_data('59f86c293c87894c07cf4984');
 
 
-var baseConvert = require('baseconvert');
-var myDecimalNumber = baseConvert.hex2dec('c1b6df66'); 
-    console.log(myDecimalNumber);
