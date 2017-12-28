@@ -1,3 +1,5 @@
+
+
 var sleep = require('sleep');
 var firebase = require('firebase');
 var fs = require('fs');
@@ -8,6 +10,17 @@ var Int64 = require('int64-native');
     username = "59f874e19e93a14edbf55ccd",
     password = "da1d5d3a093ad05f59e7827c26b6a6af",
     auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+
+    const config ={
+        apiKey: "AIzaSyC46odkupDof1kgyj780MOyiwQJBc5k3lU",
+        authDomain: "selftracking-39d34.firebaseapp.com",
+        databaseURL: "https://selftracking-39d34.firebaseio.com",
+        projectId: "selftracking-39d34",
+        storageBucket: "selftracking-39d34.appspot.com",
+        messagingSenderId: "671481167610"
+      };
+    
+      firebase.initializeApp(config);
 function get_device_list(){
 
     request(
@@ -77,16 +90,7 @@ function coordenat_data(device_id){
         //console.log(device);
 
         //firebase
-    const config ={
-        apiKey: "AIzaSyC46odkupDof1kgyj780MOyiwQJBc5k3lU",
-        authDomain: "selftracking-39d34.firebaseapp.com",
-        databaseURL: "https://selftracking-39d34.firebaseio.com",
-        projectId: "selftracking-39d34",
-        storageBucket: "selftracking-39d34.appspot.com",
-        messagingSenderId: "671481167610"
-      };
-    
-      firebase.initializeApp(config);
+   
     
     //GET DATA FROM API PYTHON
     
