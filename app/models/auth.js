@@ -1,3 +1,6 @@
+var sleep = require('sleep');
+var axios = require('axios');
+var firebase = require('firebase');
 var fs = require('fs');
 var unixTime = require('unix-time');
 var strftime = require('strftime');
@@ -55,7 +58,7 @@ function coordenat_data(device_id){
         var lnghex = data.substring(12,20);
         battery = parseInt("0x"+battery);
         battery = battery * 2.44;
-        var lat = ~lathex.toString(2);
+        var lat = 0;
         
         var lng = 0;
         var latstatus13 = a.substring(index3+28,index3+40);
@@ -67,11 +70,45 @@ function coordenat_data(device_id){
         console.log("Hour:" + hour);
         console.log("Date: " + date);
         console.log("Lat:"+ lat);
-        console.log("lng:"+ lnghex);
+        console.log("lng:"+ lng);
         console.log("battery:"+ battery);
         //console.log(device);
+
+        //firebase
+    const config ={
+        apiKey: "AIzaSyC46odkupDof1kgyj780MOyiwQJBc5k3lU",
+        authDomain: "selftracking-39d34.firebaseapp.com",
+        databaseURL: "https://selftracking-39d34.firebaseio.com",
+        projectId: "selftracking-39d34",
+        storageBucket: "selftracking-39d34.appspot.com",
+        messagingSenderId: "671481167610"
+      };
+    
+      firebase.initializeApp(config);
+    
+    //GET DATA FROM API PYTHON
+    
+    var device = firebase.database().ref('devices');
+    const db = firebase.database();
+    const deviceRef = firebase.database().ref('devices');
+    const query = deviceRef
+                  .orderByChild('devices')
+                  .limitToFirst(2)
+
+                  
+
         if (status[0]=='2'&&status[1]=='0'){
             console.log("GPS");
+            device.set(
+                {
+                  device: devicename,
+                  latitude: lat,
+                  longitude: lng,
+                  hour: hour,
+                  date: date,
+                  status: status,
+                  battery:battery
+                })
             var obj = {
                 data: []
              };
@@ -89,6 +126,16 @@ function coordenat_data(device_id){
              
         }
         if (status[0]=='1'&&status[1]=='3'){
+            device.set(
+                {
+                  device: devicename,
+                  latitude: latstatus13,
+                  longitude: lngstatus13,
+                  hour: hour,
+                  date: date,
+                  status: status,
+                  battery:null
+                })
             console.log("SOS");
             var obj = {
                 data: []
@@ -108,6 +155,16 @@ function coordenat_data(device_id){
         }
         if (status[0]=='1'&&status[1]=='1'){
             console.log("ON");
+            device.set(
+                {
+                  device: devicename,
+                  latitude: latstatus13,
+                  longitude: lngstatus13,
+                  hour: hour,
+                  date: date,
+                  status: status,
+                  battery:null
+                })
             var obj = {
                 data: []
              };
@@ -126,6 +183,16 @@ function coordenat_data(device_id){
         }
         if (status[0]=='1'&&status[1]=='2'){
             console.log("OFF");
+            device.set(
+                {
+                  device: devicename,
+                  latitude: latstatus13,
+                  longitude: lngstatus13,
+                  hour: hour,
+                  date: date,
+                  status: status,
+                  battery:null
+                })
             var obj = {
                 data: []
              };
@@ -146,8 +213,15 @@ function coordenat_data(device_id){
        
     })
 
+
+    
+
 }
 
+
+
+coordenat_data('59f86c293c87894c07cf4984');
+sleep.msleep(300);
 
 
 
@@ -155,6 +229,6 @@ function coordenat_data(device_id){
 
 //get_device_list();
 
-coordenat_data('59f86c293c87894c07cf4984');
+
 
 

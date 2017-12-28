@@ -1,6 +1,7 @@
 var axios = require('axios');
 var firebase = require('firebase');
 
+
 const config ={
     apiKey: "AIzaSyC46odkupDof1kgyj780MOyiwQJBc5k3lU",
     authDomain: "selftracking-39d34.firebaseapp.com",
@@ -23,7 +24,7 @@ const query = deviceRef
 
 
 
-              
+    /*         
 setInterval( () =>{
   axios.get('https://automi-api.herokuapp.com')
     .then(response => {
@@ -47,4 +48,4 @@ setInterval( () =>{
       )
     })
 
-}, 120000);
+}, 120000); */
