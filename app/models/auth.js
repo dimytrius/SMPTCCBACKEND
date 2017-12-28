@@ -1,5 +1,3 @@
-var sleep = require('sleep');
-var axios = require('axios');
 var firebase = require('firebase');
 var fs = require('fs');
 var unixTime = require('unix-time');
@@ -63,6 +61,8 @@ function coordenat_data(device_id){
         var lng = 0;
         var latstatus13 = a.substring(index3+28,index3+40);
         var lngstatus13 = a.substring(index3+56,index3+63);
+        latstatus13 = parseFloat(latstatus13);
+        lngstatus13 = parseFloat(lngstatus13);
         var status = data.substring(0,4);
         console.log("Device name:" + devicename);
         console.log("Status:" + status);
@@ -72,6 +72,7 @@ function coordenat_data(device_id){
         console.log("Lat:"+ lat);
         console.log("lng:"+ lng);
         console.log("battery:"+ battery);
+        
         //console.log(device);
 
         //firebase
@@ -219,12 +220,9 @@ function coordenat_data(device_id){
 }
 
 
-
+setInterval( () =>{
 coordenat_data('59f86c293c87894c07cf4984');
-sleep.msleep(300);
-
-
-
+},10000);
 
 
 //get_device_list();
