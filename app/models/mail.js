@@ -16,36 +16,31 @@ const config ={
 
 
 firebase.initializeApp(config);
-var dataset = firebase.database().ref('devices');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const dataset = firebase.database().ref('devices');
+sgMail.setApiKey('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');
 
-setInterval(() =>{
-    
-    dataset.on('value', (snapshot)=> {
+setInterval(() => {
+    dataset.on('value', (snapshot) => {
+      var lat = snapshot.val().latitude;
+      var lng = snapshot.val().longitude;
+      var status = snapshot.val().status;
+      const msg = {
+        to: emaildel,
+        from: email,
+        subject: 'Latitude e Longitude',
+        text: 'lat'+lat +'long' + lng,
+        html: 'lat = '+lat +'long = ' + lng,
+        };
+      console.log(status);
+      if(status=='1303'){
+        sgMail.send(msg);
+        console.log("email") 
+        sleep.msleep(300000);
+        console.log("delay");
         
-        var lat = snapshot.val().latitude;
-        var lng = snpashot.val().longitude;
-            const msg = {
-                to: emaildel,
-                from: email,
-                subject: 'Latitude e Longitude',
-                text: 'lat'+lat +'long' + lng,
-                html: 'lat = '+lat +'long = ' + lng,
-            };
-            
-            console.log(status)
-            
-            if(status=='13'){
-                sgMail.send(msg);
-                console.log("email") 
-                sleep.msleep(300000);
-                console.log("delay");
-                
-                   
-            }
            
-            console.log(lat);
-            console.log(lng);
+    }
+    console.log(lat);
+    console.log(lng);
     })
-            
-}, 1200);
+   }, 1000)
