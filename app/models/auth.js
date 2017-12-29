@@ -224,11 +224,11 @@ function coordenat_data(device_id){
 
 }
 
-/*
+
 setInterval( () =>{
 coordenat_data('59f86c293c87894c07cf4984');
 
 },10000);
-*/
+
 
 //get_device_list();
