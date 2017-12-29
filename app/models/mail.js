@@ -1,7 +1,7 @@
 var axios = require('axios');
 var cont;
 var sleep = require('sleep');
-var emaildel = 'dimy.rocha@gmail.com'
+var emaildel = 'emailautomaticotest@gmail.com'
 var email = 'automi@automi.com.br'
 var firebase = require('firebase');
 const sgMail = require('@sendgrid/mail');

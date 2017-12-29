@@ -56,11 +56,14 @@ function coordenat_data(device_id){
         var a = device.substring(index+7,tamanho);
         var index1 = a.indexOf('data');
         var data = a.substring(index1+9,index1+29);
+        var mac = a.substring(index1+13,index1+27);
+        mac = mac.substr(0,2)+"."+mac.substring(2,4)+"."+mac.substring(4,6)+"."+mac.substring(6,8)+"."+mac.substring(8,10)+"."+mac.substring(10,12)+"."+mac.substring(12,14);
         var devicename = a.substring(15,21);
         var index2 = a.indexOf('time');
         var index3 = a.indexOf('computedLocation');
         var hourcrip = a.substring(index2+7,index2+17);
         var battery = a.substring(index1+31,index1+33);
+        var battery2 = a.substring(index1+29,index1+31);
         var hour = strftime(' %H:%M:%S', unixTime(new Date(hourcrip)));
         var date = strftime('%b %d, %Y', unixTime(new Date(hourcrip)));
         //var lathex =  data.substring(4,12);
@@ -68,6 +71,7 @@ function coordenat_data(device_id){
         var lnghex = data.substring(12,20);
         battery = parseInt("0x"+battery);
         battery = battery * 2.44;
+        battery2 = battery2 *2.44;
         var lat = 0;
         
         var lng = 0;
@@ -84,8 +88,10 @@ function coordenat_data(device_id){
         console.log("Lat:"+ lat);
         console.log("lng:"+ lng);
         console.log("battery:"+ battery);
+        console.log("Mac:"+mac);
+        console.log("battery 2006:"+ battery2);
         
-        //console.log(device);
+        console.log(device);
 
         //firebase
    
@@ -101,7 +107,7 @@ function coordenat_data(device_id){
 
                   
 
-        if (status[0]=='2'&&status[1]=='0'){
+        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='2'){
             console.log("GPS");
             device.set(
                 {
@@ -185,8 +191,8 @@ function coordenat_data(device_id){
             }});
              
         }
-        if (status[0]=='1'&&status[1]=='2'){
-            console.log("OFF");
+        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='6'){
+            console.log("WIFI");
             device.set(
                 {
                   device: devicename,
@@ -195,7 +201,7 @@ function coordenat_data(device_id){
                   hour: hour,
                   date: date,
                   status: status,
-                  battery:null
+                  battery:battery2
                 })
             var obj = {
                 data: []
@@ -207,8 +213,9 @@ function coordenat_data(device_id){
                     console.log(err);
                 } else {
                 obj = JSON.parse(data); //now it an object
-                obj.data.push({date: date, hour: hour,status:status,latitude:latstatus13,longitude:lngstatus13,device:devicename,battery:null}); //add some data
+                obj.data.push({mac:mac}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
+                fs.writeFile('jsonloads.json', json, 'utf8');
                 return json; // write it back 
             }});
              
