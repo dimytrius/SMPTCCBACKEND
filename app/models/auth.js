@@ -57,7 +57,10 @@ function coordenat_data(device_id){
         var index1 = a.indexOf('data');
         var data = a.substring(index1+9,index1+29);
         var mac = a.substring(index1+13,index1+27);
-        mac = mac.substr(0,2)+"."+mac.substring(2,4)+"."+mac.substring(4,6)+"."+mac.substring(6,8)+"."+mac.substring(8,10)+"."+mac.substring(10,12)+"."+mac.substring(12,14);
+        var rssi = mac.substring(12,14);
+        rssi = -parseInt(rssi,16);
+        mac = mac.substr(0,2)+"."+mac.substring(2,4)+"."+mac.substring(4,6)+"."+mac.substring(6,8)+"."+mac.substring(8,10)+"."+mac.substring(10,12);
+        
         var devicename = a.substring(15,21);
         var index2 = a.indexOf('time');
         var index3 = a.indexOf('computedLocation');
@@ -90,7 +93,7 @@ function coordenat_data(device_id){
         console.log("battery:"+ battery);
         console.log("Mac:"+mac);
         console.log("battery 2006:"+ battery2);
-        
+        console.log("rssi:"+ rssi);
         console.log(device);
 
         //firebase
@@ -204,7 +207,7 @@ function coordenat_data(device_id){
                   battery:battery2
                 })
             var obj = {
-                data: []
+                wifiAccessPoints: []
              };
              var json = JSON.stringify(obj);
              fs.writeFile('jsonloads.json', json, 'utf8');
@@ -213,7 +216,7 @@ function coordenat_data(device_id){
                     console.log(err);
                 } else {
                 obj = JSON.parse(data); //now it an object
-                obj.data.push({mac:mac}); //add some data
+                obj.wifiAccessPoints.push({macAdress:mac , signalStrength:rssi,signalToNoiseRatio:0}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
                 fs.writeFile('jsonloads.json', json, 'utf8');
                 return json; // write it back 
