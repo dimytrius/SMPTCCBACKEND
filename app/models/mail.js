@@ -1,27 +1,33 @@
-/*
-Author: Dimytrius Rocha
-Version: 0.0.1
-Date: 20/12/17
-*/
-
 var axios = require('axios');
 var cont;
 var sleep = require('sleep');
-
+var emaildel = 'dimy.rocha@gmail.com'
+var email = 'dimy.rocha@gmail.com'
+var firebase = require('firebase');
 const sgMail = require('@sendgrid/mail');
+const config ={
+    apiKey: "AIzaSyC46odkupDof1kgyj780MOyiwQJBc5k3lU",
+    authDomain: "selftracking-39d34.firebaseapp.com",
+    databaseURL: "https://selftracking-39d34.firebaseio.com",
+    projectId: "selftracking-39d34",
+    storageBucket: "selftracking-39d34.appspot.com",
+    messagingSenderId: "671481167610"
+  };
 
 
+firebase.initializeApp(config);
+var dataset = firebase.database().ref('devices');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 setInterval(() =>{
-    axios.get('http://automi-api.herokuapp.com/')
-        .then((response) =>{
-            var lat = response.data.data[0].latitude;
-            var lng = response.data.data[0].longitude;
-            var status = response.data.data[0].status;
+    
+    dataset.on('value', (snapshot)=> {
+        
+        var lat = snapshot.val().latitude;
+        var lng = snpashot.val().longitude;
             const msg = {
-                to: 'dimy.rocha@gmail.com',
-                from: 'dimy.rocha@gmail.com',
+                to: emaildel,
+                from: email,
                 subject: 'Latitude e Longitude',
                 text: 'lat'+lat +'long' + lng,
                 html: 'lat = '+lat +'long = ' + lng,
@@ -40,12 +46,6 @@ setInterval(() =>{
            
             console.log(lat);
             console.log(lng);
-        }) 
-        .catch((error) =>{
-            console.log(error)
-        })
+    })
             
 }, 1200);
-
-
-
