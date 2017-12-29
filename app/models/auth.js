@@ -1,5 +1,3 @@
-
-
 var sleep = require('sleep');
 var firebase = require('firebase');
 var fs = require('fs');
