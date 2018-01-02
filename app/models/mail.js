@@ -21,13 +21,14 @@ sgMail.setApiKey('SG.YOanBpm2TMqqmJd_oWxmxg.bJ3V-lWmchFrA8v3_X_oF7AdnifzRpRQk4yq
         text: 'lat'+lat +'long' + lng,
         html: 'lat = '+lat +'long = ' + lng,
         };
+        
       console.log(status);
       
         if(status=='1303'){
             
         console.log("email")
         sgMail.send(msg); 
-        sleep.msleep(300000);
+        sleep.msleep(180000);
         console.log("delay");
     
             }                
