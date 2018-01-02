@@ -20,7 +20,10 @@ var Int64 = require('int64-native');
       };
     
       firebase.initializeApp(config);
-function get_device_list(){
+      var device_idstring;
+      var device_id;
+      var indexdeviceid;
+
 
     request(
     {
@@ -30,10 +33,17 @@ function get_device_list(){
         }
     },
     function (error, response, body) {
-        console.log(body);
-        console.log('statusCode:', response && response.statusCode);  
+        //console.log(body);
+        device_idstring = JSON.stringify(body);
+        var indexdeviceid = device_idstring.indexOf('id');
+        device_id = device_idstring.substring(indexdeviceid+7,indexdeviceid+31);
+        //console.log('statusCode:', response && response.statusCode);  
+        console.log(device_id);
     }
-);}
+  )
+
+
+
 function get_message(device_id){
 
       
@@ -61,7 +71,6 @@ function coordenat_data(device_id){
         var rssi = mac.substring(12,14);
         rssi = -parseInt(rssi,16);
         mac = mac.substr(0,2)+"."+mac.substring(2,4)+"."+mac.substring(4,6)+"."+mac.substring(6,8)+"."+mac.substring(8,10)+"."+mac.substring(10,12);
-        
         var devicename = a.substring(15,21);
         var index2 = a.indexOf('time');
         var index3 = a.indexOf('computedLocation');
@@ -262,9 +271,6 @@ function coordenat_data(device_id){
 
 
 setInterval( () =>{
-coordenat_data('59f86c293c87894c07cf4984');
+coordenat_data(device_id);
 
 },10000);
-
-
-//get_device_list();
