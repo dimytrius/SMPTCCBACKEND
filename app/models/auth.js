@@ -1,3 +1,4 @@
+var request = require('request');
 var sleep = require('sleep');
 var firebase = require('firebase');
 var fs = require('fs');
@@ -115,8 +116,8 @@ function coordenat_data(device_id){
             device.set(
                 {
                   device: devicename,
-                  latitude: lat,
-                  longitude: lng,
+                  latitude: latstatus13,
+                  longitude: lngstatus13,
                   hour: hour,
                   date: date,
                   status: status,
@@ -196,16 +197,7 @@ function coordenat_data(device_id){
         }
         if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='6'){
             console.log("WIFI");
-            device.set(
-                {
-                  device: devicename,
-                  latitude: latstatus13,
-                  longitude: lngstatus13,
-                  hour: hour,
-                  date: date,
-                  status: status,
-                  battery:battery2
-                })
+            
             var obj = {
                 wifiAccessPoints: []
              };
@@ -219,9 +211,45 @@ function coordenat_data(device_id){
                 obj.wifiAccessPoints.push({macAdress:mac , signalStrength:rssi,signalToNoiseRatio:0}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
                 fs.writeFile('jsonloads.json', json, 'utf8');
-                return json; // write it back 
+                //console.log (json); // write it back 
+                var headers = {
+                    'Content-Type': 'application/json'
+                   };
+                   
+                //var dataString = require('./jsonloads.json');
+                var options = {
+                    url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDx-TGi3z__dAF0pUmTFxsPgWCEBPlcaBk',
+                    method: 'POST',
+                    headers: headers,
+                    data: json
+                   };
+                   
+                   function callback(error, response, body) {
+                    //console.log(body)
+                    localização = JSON.stringify(body);
+                    //console.log(localização)
+                    var latindex = localização.indexOf('lat');
+                    var lat2006 = localização.substring(latindex+6,latindex+16);
+                    var lngindex = localização.indexOf('lng');
+                    var lng2006 = localização.substring(lngindex+6,lngindex+16);
+                    console.log(lat2006);
+                    console.log(lng2006);
+                    device.set(
+                        {
+                          device: devicename,
+                          latitude: lat2006,
+                          longitude: lng2006,
+                          hour: hour,
+                          date: date,
+                          status: status,
+                          battery:battery2
+                        })
+                   
+                   }
+                   request(options, callback);
             }});
-             
+          
+            
         }
        
        
