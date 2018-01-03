@@ -247,6 +247,8 @@ function coordenat_data(device_id){
                     var lat2006 = localização.substring(latindex+6,latindex+16);
                     var lngindex = localização.indexOf('lng');
                     var lng2006 = localização.substring(lngindex+6,lngindex+16);
+                    lat2006 = parseFloat(lat2006);
+                    lng2006 = parseFloat(lng2006);
                     console.log(lat2006);
                     console.log(lng2006);
                     device.set(
