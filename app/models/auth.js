@@ -93,6 +93,7 @@ function coordenat_data(device_id){
         latstatus13 = parseFloat(latstatus13);
         lngstatus13 = parseFloat(lngstatus13);
         var status = data.substring(0,4);
+        /*
         console.log("Device name:" + devicename);
         console.log("Status:" + status);
         console.log("Data:" + data);
@@ -105,7 +106,7 @@ function coordenat_data(device_id){
         console.log("battery 2006:"+ battery2);
         console.log("rssi:"+ rssi);
         console.log(device);
-
+        */
         //firebase
    
     
@@ -131,7 +132,7 @@ function coordenat_data(device_id){
                   date: date,
                   status: status,
                   battery:battery
-                })
+                })/*
             var obj = {
                 data: []
              };
@@ -146,7 +147,7 @@ function coordenat_data(device_id){
                 json = JSON.stringify(obj); //convert it back to json
                 return json; // write it back 
             }});
-             
+             */
         }
         if (status[0]=='1'&&status[1]=='3'){
             device.set(
@@ -158,13 +159,12 @@ function coordenat_data(device_id){
                   date: date,
                   status: status,
                   battery:null
-                })
+                })/*
             console.log("SOS");
             var obj = {
                 data: []
              };
              var json = JSON.stringify(obj);
-             fs.writeFile('jsonloads.json', json, 'utf8');
              fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
                 if (err){
                     console.log(err);
@@ -174,7 +174,7 @@ function coordenat_data(device_id){
                 json = JSON.stringify(obj); //convert it back to json
                 console.log (json); // write it back 
             }});
-             
+             */
         }
         if (status[0]=='1'&&status[1]=='1'){
             console.log("ON");
@@ -188,6 +188,7 @@ function coordenat_data(device_id){
                   status: status,
                   battery:null
                 })
+                /*
             var obj = {
                 data: []
              };
@@ -202,7 +203,7 @@ function coordenat_data(device_id){
                 json = JSON.stringify(obj); //convert it back to json
                 return json; // write it back 
             }});
-             
+             */
         }
         if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='6'){
             console.log("WIFI");
@@ -211,7 +212,11 @@ function coordenat_data(device_id){
                 wifiAccessPoints: []
              };
              var json = JSON.stringify(obj);
-             fs.writeFile('jsonloads.json', json, 'utf8');
+             fs.writeFile('jsonloads.json', json, 'utf8',function (err,data) {
+                if (err) {
+                  return console.log(err);
+                }
+              });
              fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
                 if (err){
                     console.log(err);
@@ -219,7 +224,11 @@ function coordenat_data(device_id){
                 obj = JSON.parse(data); //now it an object
                 obj.wifiAccessPoints.push({macAdress:mac , signalStrength:rssi,signalToNoiseRatio:0}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('jsonloads.json', json, 'utf8');
+                fs.writeFile('jsonloads.json', json, 'utf8', function (err,data) {
+                    if (err) {
+                      return console.log(err);
+                    }
+                  });
                 //console.log (json); // write it back 
                 var headers = {
                     'Content-Type': 'application/json'
@@ -274,3 +283,4 @@ setInterval( () =>{
 coordenat_data(device_id);
 
 },10000);
+

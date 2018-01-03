@@ -28,6 +28,7 @@
     "sendgrid": "^5.2.3",
     "sleep": "^5.1.1",
     "strftime": "^0.10.0",
+    "uint32": "^0.2.1",
     "unix-time": "^1.0.1",
     "winston": "^2.4.0"
   }
