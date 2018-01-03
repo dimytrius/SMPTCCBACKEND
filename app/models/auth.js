@@ -212,11 +212,8 @@ function coordenat_data(device_id){
                 wifiAccessPoints: []
              };
              var json = JSON.stringify(obj);
-             fs.writeFile('jsonloads.json', json, 'utf8',function (err,data) {
-                if (err) {
-                  return console.log(err);
-                }
-              });
+             fs.writeFile('jsonloads.json', json, 'utf8',function(err){
+                console.log("Error renaming file:", err )});
              fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
                 if (err){
                     console.log(err);
@@ -224,11 +221,8 @@ function coordenat_data(device_id){
                 obj = JSON.parse(data); //now it an object
                 obj.wifiAccessPoints.push({macAdress:mac , signalStrength:rssi,signalToNoiseRatio:0}); //add some data
                 json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('jsonloads.json', json, 'utf8', function (err,data) {
-                    if (err) {
-                      return console.log(err);
-                    }
-                  });
+                fs.writeFile('jsonloads.json', json, 'utf8', function(err){
+                    console.log("Error renaming file:", err )});
                 //console.log (json); // write it back 
                 var headers = {
                     'Content-Type': 'application/json'
