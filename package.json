@@ -22,6 +22,7 @@
     "hapi": "^17.1.1",
     "hex2dec": "^1.0.1",
     "int64-native": "^0.4.0",
+    "int64string2uint64string": "^1.0.0",
     "node-datetime": "^2.0.3",
     "nodemon": "^1.14.3",
     "request-promise": "^4.2.2",
