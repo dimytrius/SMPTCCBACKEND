@@ -114,7 +114,6 @@ function coordenat_data(device_id){
         battery = battery * 2.44;
         battery2 = battery2 *2.44;
         var lat = 0;
-        
         var lng = 0;
         var latstatus13 = a.substring(index3+28,index3+40);
         var lngstatus13 = a.substring(index3+56,index3+63);
@@ -141,18 +140,18 @@ function coordenat_data(device_id){
     
     //GET DATA FROM API PYTHON
     
-    var device = firebase.database().ref('devices');
+    var device = firebase.database().ref('device');
     const db = firebase.database();
-    const deviceRef = firebase.database().ref('devices');
+    const deviceRef = firebase.database().ref('device');
     const query = deviceRef
-                  .orderByChild('devices')
+                  .orderByChild('device')
                   .limitToFirst(2)
 
                   
 
         if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='2'){
             console.log("GPS");
-            device.set(
+            device.push(
                 {
                   device: devicename,
                   latitude: lathex,
@@ -179,7 +178,7 @@ function coordenat_data(device_id){
              */
         }
         if (status[0]=='1'&&status[1]=='3'){
-            device.set(
+            device.push(
                 {
                   device: devicename,
                   latitude: latstatus13,
@@ -207,7 +206,7 @@ function coordenat_data(device_id){
         }
         if (status[0]=='1'&&status[1]=='1'){
             console.log("ON");
-            device.set(
+            device.push(
                 {
                   device: devicename,
                   latitude: latstatus13,
@@ -280,7 +279,7 @@ function coordenat_data(device_id){
                     lng2006 = parseFloat(lng2006);
                     console.log(lat2006);
                     console.log(lng2006);
-                    device.set(
+                    device.push(
                         {
                           device: devicename,
                           latitude: lat2006,
@@ -311,5 +310,5 @@ function coordenat_data(device_id){
 setInterval( () =>{
 coordenat_data(device_id);
 
-},10000);
+}, 60000);
 
