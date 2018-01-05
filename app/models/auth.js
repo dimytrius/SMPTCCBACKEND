@@ -108,8 +108,13 @@ function coordenat_data(device_id){
         var lnghex = "0x"+data.substring(12,20);
         console.log(lathex);
         console.log(lnghex);
-        lathex = convertfloat(lathex);
-        lnghex = convertfloat(lnghex);
+        if(lathex=='0x80000000'||lathex=='0x00000000'){
+            lathex = 0,0;
+            lnghex = 0,0;
+        }else{
+            lathex = convertfloat(lathex);
+            lnghex = convertfloat(lnghex);
+        }
         battery = parseInt("0x"+battery);
         battery = battery * 2.44;
         battery2 = battery2 *2.44;
