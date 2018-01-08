@@ -191,7 +191,7 @@ function coordenat_data(device_id){
                   hour: hour,
                   date: date,
                   status: status,
-                  battery:null
+                  battery:0
                 })/*
             console.log("SOS");
             var obj = {
@@ -219,7 +219,7 @@ function coordenat_data(device_id){
                   hour: hour,
                   date: date,
                   status: status,
-                  battery:null
+                  battery:0
                 })
                 /*
             var obj = {
