@@ -155,7 +155,7 @@ function coordenat_data(device_id){
 
                   
 
-        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='1'){
+        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='2'){
             console.log("GPS");
             device.push(
                 {
