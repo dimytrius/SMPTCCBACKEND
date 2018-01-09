@@ -100,24 +100,26 @@ function coordenat_data(device_id){
         var index2 = a.indexOf('time');
         var index3 = a.indexOf('computedLocation');
         var hourcrip = a.substring(index2+7,index2+17);
-        var battery = a.substring(index1+31,index1+33);
-        var battery2 = a.substring(index1+29,index1+31);
+        //var battery = a.substring(index1+31,index1+33);
+        //var battery2 = a.substring(index1+29,index1+31);
         var hour = strftime(' %H:%M:%S', unixTime(new Date(hourcrip)));
         var date = strftime('%b %d, %Y', unixTime(new Date(hourcrip)));
-        var lathex =  "0x"+data.substring(4,12);
-        var lnghex = "0x"+data.substring(12,20);
+        var lathex =  "0x"+data.substring(4,10);
+        var lnghex = "0x"+data.substring(10,16);
+        var battery = +data.substring(18,21);
+        console.log(battery);
         console.log(lathex);
         console.log(lnghex);
-        if(lathex=='0x80000000'||lathex=='0x00000000'){
+        if(lathex=='0x800000'||lathex=='0x000000'){
             lathex = 0,0;
             lnghex = 0,0;
         }else{
             lathex = convertfloat(lathex);
             lnghex = convertfloat(lnghex);
         }
-        battery = parseInt("0x"+battery);
-        battery = battery * 2.44;
-        battery2 = battery2 *2.44;
+        battery = parseInt('0x'+battery);
+        //battery = battery * 2.44;
+        //battery2 = battery2 *2.44;
         var lat = 0;
         var lng = 0;
         var latstatus13 = a.substring(index3+28,index3+40);
@@ -125,7 +127,7 @@ function coordenat_data(device_id){
         latstatus13 = parseFloat(latstatus13);
         lngstatus13 = parseFloat(lngstatus13);
         var status = data.substring(0,4);
-        /*
+        
         console.log("Device name:" + devicename);
         console.log("Status:" + status);
         console.log("Data:" + data);
@@ -134,10 +136,9 @@ function coordenat_data(device_id){
         
         console.log("battery:"+ battery);
         console.log("Mac:"+mac);
-        console.log("battery 2006:"+ battery2);
         console.log("rssi:"+ rssi);
-        console.log(device);
-        */
+        //console.log(device);
+        
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
         //firebase
@@ -154,7 +155,7 @@ function coordenat_data(device_id){
 
                   
 
-        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='2'){
+        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='1'){
             console.log("GPS");
             device.push(
                 {
@@ -186,12 +187,12 @@ function coordenat_data(device_id){
             device.push(
                 {
                   device: devicename,
-                  latitude: latstatus13,
-                  longitude: lngstatus13,
+                  latitude: lathex,
+                  longitude: lnghex,
                   hour: hour,
                   date: date,
                   status: status,
-                  battery:0
+                  battery:battery
                 })/*
             console.log("SOS");
             var obj = {
@@ -214,12 +215,12 @@ function coordenat_data(device_id){
             device.push(
                 {
                   device: devicename,
-                  latitude: latstatus13,
-                  longitude: lngstatus13,
+                  latitude: lathex,
+                  longitude: lnghex,
                   hour: hour,
                   date: date,
                   status: status,
-                  battery:0
+                  battery:battery
                 })
                 /*
             var obj = {
@@ -315,5 +316,5 @@ function coordenat_data(device_id){
 setInterval( () =>{
 coordenat_data(device_id);
 
-}, 60000);
+}, 10000);
 
