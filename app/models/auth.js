@@ -91,7 +91,7 @@ function coordenat_data(device_id){
         var tamanho = device.length;
         var a = device.substring(index+7,tamanho);
         var index1 = a.indexOf('data');
-        var data = a.substring(index1+9,index1+29);
+        var data = a.substring(index1+9,index1+33);
         var mac = a.substring(index1+13,index1+27);
         var rssi = mac.substring(12,14);
         rssi = -parseInt(rssi,16);
@@ -104,13 +104,13 @@ function coordenat_data(device_id){
         //var battery2 = a.substring(index1+29,index1+31);
         var hour = strftime(' %H:%M:%S', unixTime(new Date(hourcrip)));
         var date = strftime('%b %d, %Y', unixTime(new Date(hourcrip)));
-        var lathex =  "0x"+data.substring(4,10);
-        var lnghex = "0x"+data.substring(10,16);
-        var battery = +data.substring(18,21);
+        var lathex =  "0x"+data.substring(4,12);
+        var lnghex = "0x"+data.substring(12,20);
+        var battery = data.substring(22,24);
         console.log(battery);
         console.log(lathex);
         console.log(lnghex);
-        if(lathex=='0x800000'||lathex=='0x000000'){
+        if(lathex=='0x80000000'||lathex=='0x00000000'){
             lathex = 0,0;
             lnghex = 0,0;
         }else{
@@ -316,5 +316,5 @@ function coordenat_data(device_id){
 setInterval( () =>{
 coordenat_data(device_id);
 
-}, 60000);
+}, 6000);
 
