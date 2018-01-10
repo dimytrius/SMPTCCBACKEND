@@ -110,13 +110,7 @@ function coordenat_data(device_id){
         console.log(battery);
         console.log(lathex);
         console.log(lnghex);
-        if(lathex=='0x80000000'||lathex=='0x00000000'){
-            lathex = 0,0;
-            lnghex = 0,0;
-        }else{
-            lathex = convertfloat(lathex);
-            lnghex = convertfloat(lnghex);
-        }
+        
         battery = parseInt('0x'+battery);
         //battery = battery * 2.44;
         //battery2 = battery2 *2.44;
@@ -127,6 +121,13 @@ function coordenat_data(device_id){
         latstatus13 = parseFloat(latstatus13);
         lngstatus13 = parseFloat(lngstatus13);
         var status = data.substring(0,4);
+        if(status[3]=='5'){
+            lathex = 0,0;
+            lnghex = 0,0;
+        }else{
+            lathex = convertfloat(lathex);
+            lnghex = convertfloat(lnghex);
+        }
         
         console.log("Device name:" + devicename);
         console.log("Status:" + status);
@@ -166,22 +167,7 @@ function coordenat_data(device_id){
                   date: date,
                   status: status,
                   battery:battery
-                })/*
-            var obj = {
-                data: []
-             };
-             var json = JSON.stringify(obj);
-             fs.writeFile('jsonloads.json', json, 'utf8');
-             fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
-                if (err){
-                    console.log(err);
-                } else {
-                obj = JSON.parse(data); //now it an object
-                obj.data.push({date: date, hour: hour,status:status,latitude:lathex,longitude:lnghex,device:devicename,battery:battery}); //add some data
-                json = JSON.stringify(obj); //convert it back to json
-                return json; // write it back 
-            }});
-             */
+                })
         }
         if (status[0]=='1'&&status[1]=='3'){
             device.push(
@@ -193,22 +179,7 @@ function coordenat_data(device_id){
                   date: date,
                   status: status,
                   battery:battery
-                })/*
-            console.log("SOS");
-            var obj = {
-                data: []
-             };
-             var json = JSON.stringify(obj);
-             fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
-                if (err){
-                    console.log(err);
-                } else {
-                obj = JSON.parse(data); //now it an object
-                obj.data.push({date: date, hour: hour,status:status,latitude:latstatus13,longitude:lngstatus13,device:devicename,battery:null}); //add some data
-                json = JSON.stringify(obj); //convert it back to json
-                console.log (json); // write it back 
-            }});
-             */
+                })
         }
         if (status[0]=='1'&&status[1]=='1'){
             console.log("ON");
@@ -222,24 +193,23 @@ function coordenat_data(device_id){
                   status: status,
                   battery:battery
                 })
-                /*
-            var obj = {
-                data: []
-             };
-             var json = JSON.stringify(obj);
-             fs.writeFile('jsonloads.json', json, 'utf8');
-             fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
-                if (err){
-                    console.log(err);
-                } else {
-                obj = JSON.parse(data); //now it an object
-                obj.data.push({date: date, hour: hour,status:status,latitude:latstatus13,longitude:lngstatus13,device:devicename,battery:null}); //add some data
-                json = JSON.stringify(obj); //convert it back to json
-                return json; // write it back 
-            }});
-             */
+                
         }
-        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='6'){
+        if (status[0]=='1'&&status[1]=='2'){
+            console.log("OFF");
+            device.push(
+                {
+                  device: devicename,
+                  latitude: lathex,
+                  longitude: lnghex,
+                  hour: hour,
+                  date: date,
+                  status: status,
+                  battery:battery
+                })
+                
+        }
+        /*if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='6'){
             console.log("WIFI");
             
             var obj = {
@@ -301,7 +271,7 @@ function coordenat_data(device_id){
             
           
             
-        }
+        }*/
        
        
     
@@ -315,6 +285,5 @@ function coordenat_data(device_id){
 
 setInterval( () =>{
 coordenat_data(device_id);
-
-}, 60000);
+}, 6000);
 
