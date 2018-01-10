@@ -169,6 +169,19 @@ function coordenat_data(device_id){
                   battery:battery
                 })
         }
+        if (status[0]=='2'&&status[1]=='1'&& status[2]=='0'&&status[3]=='2'){
+            console.log("GPSMOV");
+            device.push(
+                {
+                  device: devicename,
+                  latitude: lathex,
+                  longitude: lnghex,
+                  hour: hour,
+                  date: date,
+                  status: status,
+                  battery:battery
+                })
+        }
         if (status[0]=='1'&&status[1]=='3'){
             device.push(
                 {
