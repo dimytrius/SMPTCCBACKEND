@@ -285,5 +285,5 @@ function coordenat_data(device_id){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 6000);
+}, 60000);
 
