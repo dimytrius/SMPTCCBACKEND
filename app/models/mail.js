@@ -24,7 +24,7 @@ sgMail.setApiKey('SG.YOanBpm2TMqqmJd_oWxmxg.bJ3V-lWmchFrA8v3_X_oF7AdnifzRpRQk4yq
         
       console.log(status);
       
-        if(status=='1303'){
+        if(status=='1302'){
             
         console.log("email")
         sgMail.send(msg); 

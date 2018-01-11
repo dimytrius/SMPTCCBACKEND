@@ -166,7 +166,7 @@ function coordenat_data(device_id){
                   .limitToFirst(2)
 
                   
-
+if (lathex != 0 || lnghex != 0){
         if (status[0]=='2'&&status[1]=='0'){
             console.log("GPS");
             device.push(
@@ -297,7 +297,7 @@ function coordenat_data(device_id){
             
         }*/
        
-       
+    }
     
     })
 
@@ -309,5 +309,5 @@ function coordenat_data(device_id){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 60000);
+}, 10000);
 
