@@ -156,7 +156,7 @@ function coordenat_data(device_id){
 
                   
 
-        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='2'){
+        if (status[0]=='2'&&status[1]=='0'){
             console.log("GPS");
             device.push(
                 {
@@ -169,7 +169,7 @@ function coordenat_data(device_id){
                   battery:battery
                 })
         }
-        if (status[0]=='2'&&status[1]=='1'&& status[2]=='0'&&status[3]=='2'){
+        if (status[0]=='2'&&status[1]=='1'){
             console.log("GPSMOV");
             device.push(
                 {
