@@ -309,5 +309,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 10000);
+}, 60000);
 
