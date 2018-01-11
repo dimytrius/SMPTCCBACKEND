@@ -42,6 +42,16 @@ var Int64 = require('int64-native');
     }
   )
 
+  function arredondar(str, casas) {
+    //if (str.indexOf('.') != -1) str = str.replace(',', '.');
+    if (!casas) casas = 0;
+    casas = Math.pow(10, casas);
+    str = parseFloat(str) * casas;
+    return Math.floor(str) / casas;
+}
+
+
+
   function convertfloat(str) {
     var float = 0, sign, order, mantiss,exp,
     int = 0, multi = 1;
@@ -140,23 +150,24 @@ function coordenat_data(device_id){
         console.log("rssi:"+ rssi);
         //console.log(device);
         
+        
+        //firebase
+        lathex = arredondar(lathex, 3);
+        lnghex = arredondar(lnghex, 3);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
-        //firebase
-   
-    
     //GET DATA FROM API PYTHON
     
-    var device = firebase.database().ref('device');
+    var device = firebase.database().ref(devicename);
     const db = firebase.database();
-    const deviceRef = firebase.database().ref('device');
+    const deviceRef = firebase.database().ref(devicename);
     const query = deviceRef
-                  .orderByChild('device')
+                  .orderByChild(devicename)
                   .limitToFirst(2)
 
                   
 
-        if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='2'){
+        if (status[0]=='2'&&status[1]=='0'){
             console.log("GPS");
             device.push(
                 {
@@ -169,7 +180,7 @@ function coordenat_data(device_id){
                   battery:battery
                 })
         }
-        if (status[0]=='2'&&status[1]=='1'&& status[2]=='0'&&status[3]=='2'){
+        if (status[0]=='2'&&status[1]=='1'){
             console.log("GPSMOV");
             device.push(
                 {
@@ -298,5 +309,5 @@ function coordenat_data(device_id){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 6000);
+}, 60000);
 
