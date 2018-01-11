@@ -152,8 +152,8 @@ function coordenat_data(device_id){
         
         
         //firebase
-        lathex = arredondar(lathex, 3);
-        lnghex = arredondar(lnghex, 3);
+        lathex = arredondar(lathex, 4);
+        lnghex = arredondar(lnghex, 4);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
     //GET DATA FROM API PYTHON
