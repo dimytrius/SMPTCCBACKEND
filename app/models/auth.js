@@ -204,7 +204,7 @@ if (lathex != 0 || lnghex != 0){
                     console.log (lat2006);
                     console.log (lng2006);
                     console.log (accuracy);
-                    if (accuracy<=10000){
+                    
                         device.push(
                             {
                               device: devicename,
@@ -215,19 +215,7 @@ if (lathex != 0 || lnghex != 0){
                               status: status,
                               battery:0
                             })
-                    }else{
-                        device.push(
-                            {
-                              device: devicename,
-                              latitude: latstatus13,
-                              longitude: lngstatus13,
-                              hour: hour,
-                              date: date,
-                              status: status,
-                              battery:0
-                            })
-
-                    }
+                    
                   });
             }
         }
@@ -272,7 +260,7 @@ if (lathex != 0 || lnghex != 0){
                      console.log (lat2006);
                      console.log (lng2006);
                      console.log (accuracy);
-                     if (accuracy<=10000){
+                     
                          device.push(
                              {
                                device: devicename,
@@ -283,19 +271,9 @@ if (lathex != 0 || lnghex != 0){
                                status: status,
                                battery:0
                              })
-                     }else{
-                         device.push(
-                             {
-                               device: devicename,
-                               latitude: latstatus13,
-                               longitude: lngstatus13,
-                               hour: hour,
-                               date: date,
-                               status: status,
-                               battery:0
-                             })
+                     
  
-                     }
+                     
                    });
                 
             }
@@ -347,5 +325,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 60000);
+}, 10000);
 
