@@ -3,6 +3,9 @@ var sleep = require('sleep');
 var firebase = require('firebase');
 var fs = require('fs');
 var unixTime = require('unix-time');
+const geolocation = require ('google-geolocation') ({
+    key: 'AIzaSyB7dhi_XOHuYK5nq0NSkUxfgTqwIU2VIt4'
+  });
 var strftime = require('strftime');
 var request = require('request-promise');
 var Int64 = require('int64-native');
@@ -110,8 +113,6 @@ function coordenat_data(device_id){
         var index2 = a.indexOf('time');
         var index3 = a.indexOf('computedLocation');
         var hourcrip = a.substring(index2+7,index2+17);
-        //var battery = a.substring(index1+31,index1+33);
-        //var battery2 = a.substring(index1+29,index1+31);
         var hour = strftime(' %H:%M:%S', unixTime(new Date(hourcrip)));
         var date = strftime('%b %d, %Y', unixTime(new Date(hourcrip)));
         var lathex =  "0x"+data.substring(4,12);
@@ -120,12 +121,7 @@ function coordenat_data(device_id){
         console.log(battery);
         console.log(lathex);
         console.log(lnghex);
-        
         battery = parseInt('0x'+battery);
-        //battery = battery * 2.44;
-        //battery2 = battery2 *2.44;
-        var lat = 0;
-        var lng = 0;
         var latstatus13 = a.substring(index3+28,index3+40);
         var lngstatus13 = a.substring(index3+56,index3+63);
         latstatus13 = parseFloat(latstatus13);
@@ -144,7 +140,7 @@ function coordenat_data(device_id){
         console.log("Data:" + data);
         console.log("Hour:" + hour);
         console.log("Date: " + date);
-        
+        console.log(latstatus13);
         console.log("battery:"+ battery);
         console.log("Mac:"+mac);
         console.log("rssi:"+ rssi);
@@ -168,6 +164,7 @@ function coordenat_data(device_id){
                   
 if (lathex != 0 || lnghex != 0){
         if (status[0]=='2'&&status[1]=='0'){
+            if(status[2]=='0'&&status[3]=='2'){
             console.log("GPS");
             device.push(
                 {
@@ -179,8 +176,63 @@ if (lathex != 0 || lnghex != 0){
                   status: status,
                   battery:battery
                 })
+            }else{  
+                  // Configure API parameters
+                  const params = {
+                   // considerIp: "false",
+                    wifiAccessPoints: [
+                      {
+                        macAddress: mac,
+                        signalStrength: rssi,
+                        signalToNoiseRatio: 0
+                       
+                      }
+                    ]
+                  };
+                  console.log(params);
+                  // Get data
+                  geolocation (params, (err, data) => {
+                    if (err) {
+                      console.log (err);
+                      return;
+                    }
+                    wifilocation = JSON.stringify(data);
+                    var lat2006 = wifilocation.substring(19,29);
+                    var lng2006 = wifilocation.substring(37,47);
+                    var accuracy = wifilocation.substring(61,66);
+                    console.log (wifilocation);
+                    console.log (lat2006);
+                    console.log (lng2006);
+                    console.log (accuracy);
+                    if (accuracy<=10000){
+                        device.push(
+                            {
+                              device: devicename,
+                              latitude: lat2006,
+                              longitude: lng2006,
+                              hour: hour,
+                              date: date,
+                              status: status,
+                              battery:0
+                            })
+                    }else{
+                        device.push(
+                            {
+                              device: devicename,
+                              latitude: latstatus13,
+                              longitude: lngstatus13,
+                              hour: hour,
+                              date: date,
+                              status: status,
+                              battery:0
+                            })
+
+                    }
+                  });
+            }
         }
         if (status[0]=='2'&&status[1]=='1'){
+            if(status[2]=='0'&&status[3]=='2'){
             console.log("GPSMOV");
             device.push(
                 {
@@ -192,6 +244,61 @@ if (lathex != 0 || lnghex != 0){
                   status: status,
                   battery:battery
                 })
+            }else{
+                // Configure API parameters
+                const params = {
+                    // considerIp: "false",
+                     wifiAccessPoints: [
+                       {
+                         macAddress: mac,
+                         signalStrength: rssi,
+                         signalToNoiseRatio: 0
+                        
+                       }
+                     ]
+                   };
+                   console.log(params);
+                   // Get data
+                   geolocation (params, (err, data) => {
+                     if (err) {
+                       console.log (err);
+                       return;
+                     }
+                     wifilocation = JSON.stringify(data);
+                     var lat2006 = wifilocation.substring(19,29);
+                     var lng2006 = wifilocation.substring(37,47);
+                     var accuracy = wifilocation.substring(61,66);
+                     console.log (wifilocation);
+                     console.log (lat2006);
+                     console.log (lng2006);
+                     console.log (accuracy);
+                     if (accuracy<=10000){
+                         device.push(
+                             {
+                               device: devicename,
+                               latitude: lat2006,
+                               longitude: lng2006,
+                               hour: hour,
+                               date: date,
+                               status: status,
+                               battery:0
+                             })
+                     }else{
+                         device.push(
+                             {
+                               device: devicename,
+                               latitude: latstatus13,
+                               longitude: lngstatus13,
+                               hour: hour,
+                               date: date,
+                               status: status,
+                               battery:0
+                             })
+ 
+                     }
+                   });
+                
+            }
         }
         if (status[0]=='1'&&status[1]=='3'){
             device.push(
@@ -233,81 +340,12 @@ if (lathex != 0 || lnghex != 0){
                 })
                 
         }
-        /*if (status[0]=='2'&&status[1]=='0'&& status[2]=='0'&&status[3]=='6'){
-            console.log("WIFI");
-            
-            var obj = {
-                wifiAccessPoints: []
-             };
-             var json = JSON.stringify(obj);
-             fs.writeFile('jsonloads.json', json, 'utf8',function(err){
-                //console.log("Error renaming file:", err )
-            });
-             fs.readFile('jsonloads.json', 'utf8', function readFileCallback(err, data){
-                if (err){
-                    console.log(err);
-                } else {
-                obj = JSON.parse(data); //now it an object
-                obj.wifiAccessPoints.push({macAdress:mac , signalStrength:rssi,signalToNoiseRatio:0}); //add some data
-                fs.writeFile('jsonloads.json', json, 'utf8', function(err){
-                    //console.log("Error renaming file:", err )
-                });
-                }
-                });
-                //console.log (json); // write it back 
-                var headers = {
-                    'Content-Type': 'application/json'
-                   };
-                   
-                var dataString = require('./jsonloads.json');
-                var options = {
-                    url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDx-TGi3z__dAF0pUmTFxsPgWCEBPlcaBk',
-                    method: 'POST',
-                    headers: headers,
-                    data: json
-                   };
-                   
-                   function callback(error, response, body) {
-                    //console.log(body)
-                    localização = JSON.stringify(body);
-                    //console.log(localização)
-                    var latindex = localização.indexOf('lat');
-                    var lat2006 = localização.substring(latindex+6,latindex+16);
-                    var lngindex = localização.indexOf('lng');
-                    var lng2006 = localização.substring(lngindex+6,lngindex+16);
-                    lat2006 = parseFloat(lat2006);
-                    lng2006 = parseFloat(lng2006);
-                    console.log(lat2006);
-                    console.log(lng2006);
-                    device.push(
-                        {
-                          device: devicename,
-                          latitude: lat2006,
-                          longitude: lng2006,
-                          hour: hour,
-                          date: date,
-                          status: status,
-                          battery:battery2
-                        })
-                   
-                   }
-                   request(options, callback);
-            
-          
-            
-        }*/
-       
     }
-    
     })
-
-
-    
-
 }
 
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 60000);
+}, 7000);
 
