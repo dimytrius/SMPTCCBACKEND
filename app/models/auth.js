@@ -202,11 +202,14 @@ if (lathex != 0 || lnghex != 0){
                     var indexwifiaccuracy = wifilocation.indexOf('accuracy');
                     var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
                     var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                
+                    var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
+                    lat2006 = parseFloat(lat2006);
+                    lng2006 = parseFloat(lng2006);
                     console.log (wifilocation);
                     console.log (lat2006);
                     console.log (lng2006);
-                    
+                    console.log (accuracy);
+                    if(accuracy<='10000'){
                         device.push(
                             {
                               device: devicename,
@@ -217,7 +220,8 @@ if (lathex != 0 || lnghex != 0){
                               status: status,
                               battery:0
                             })
-                    
+                           }
+
                   });
             }
         }
@@ -256,15 +260,19 @@ if (lathex != 0 || lnghex != 0){
                      }
                      wifilocation = JSON.stringify(data);
                      var indexwifilat = wifilocation.indexOf('lat');
-                     var indexwifilnt = wifilocation.indexOf('lng');
+                     var indexwifilng = wifilocation.indexOf('lng');
                      var indexwifiaccuracy = wifilocation.indexOf('accuracy');
                      var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                     var lng2006 = wifilocation.substring(indexwifilnt+5,indexwifilng+15);
-                
+                     var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
+                     var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
+                     lat2006 = parseFloat(lat2006);
+                     lng2006 = parseFloat(lng2006);
+                     
                      console.log (wifilocation);
                      console.log (lat2006);
                      console.log (lng2006);
-                     
+                     console.log (accuracy);
+                     if(accuracy<='10000'){
                          device.push(
                              {
                                device: devicename,
@@ -275,7 +283,7 @@ if (lathex != 0 || lnghex != 0){
                                status: status,
                                battery:0
                              })
-                     
+                            }
  
                      
                    });
@@ -329,5 +337,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 60000);
+}, 10000);
 
