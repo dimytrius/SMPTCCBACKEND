@@ -106,6 +106,7 @@ function coordenat_data(device_id){
         var index1 = a.indexOf('data');
         var data = a.substring(index1+9,index1+33);
         var mac = a.substring(index1+13,index1+27);
+        var batterymac = data.substring(index1+30,index1+31);
         var rssi = mac.substring(12,14);
         rssi = -parseInt(rssi,16);
         mac = mac.substr(0,2)+"."+mac.substring(2,4)+"."+mac.substring(4,6)+"."+mac.substring(6,8)+"."+mac.substring(8,10)+"."+mac.substring(10,12);
@@ -140,7 +141,6 @@ function coordenat_data(device_id){
         console.log("Data:" + data);
         console.log("Hour:" + hour);
         console.log("Date: " + date);
-        console.log(latstatus13);
         console.log("battery:"+ battery);
         console.log("Mac:"+mac);
         console.log("rssi:"+ rssi);
@@ -197,13 +197,15 @@ if (lathex != 0 || lnghex != 0){
                       return;
                     }
                     wifilocation = JSON.stringify(data);
-                    var lat2006 = wifilocation.substring(19,29);
-                    var lng2006 = wifilocation.substring(37,47);
-                    var accuracy = wifilocation.substring(61,66);
+                    var indexwifilat = wifilocation.indexOf('lat');
+                    var indexwifilng = wifilocation.indexOf('lng');
+                    var indexwifiaccuracy = wifilocation.indexOf('accuracy');
+                    var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
+                    var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
+                
                     console.log (wifilocation);
                     console.log (lat2006);
                     console.log (lng2006);
-                    console.log (accuracy);
                     
                         device.push(
                             {
@@ -253,13 +255,15 @@ if (lathex != 0 || lnghex != 0){
                        return;
                      }
                      wifilocation = JSON.stringify(data);
-                     var lat2006 = wifilocation.substring(19,29);
-                     var lng2006 = wifilocation.substring(37,47);
-                     var accuracy = wifilocation.substring(61,66);
+                     var indexwifilat = wifilocation.indexOf('lat');
+                     var indexwifilnt = wifilocation.indexOf('lng');
+                     var indexwifiaccuracy = wifilocation.indexOf('accuracy');
+                     var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
+                     var lng2006 = wifilocation.substring(indexwifilnt+5,indexwifilng+15);
+                
                      console.log (wifilocation);
                      console.log (lat2006);
                      console.log (lng2006);
-                     console.log (accuracy);
                      
                          device.push(
                              {
@@ -325,5 +329,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 10000);
+}, 60000);
 
