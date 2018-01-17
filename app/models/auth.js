@@ -162,8 +162,8 @@ function coordenat_data(device_id){
         
         
         //firebase
-        lathex = arredondar(lathex, 4);
-        lnghex = arredondar(lnghex, 4);
+        lathex = arredondar(lathex, 6);
+        lnghex = arredondar(lnghex, 6);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
     //GET DATA FROM API PYTHON
@@ -193,17 +193,18 @@ if (lathex != 0 || lnghex != 0){
                 
               
               var lat1 = lathex;
-              var lat2 = jsonData.substring(20,28);
+              var lat2 = jsonData.substring(20,30);
               var lng1 = lnghex;
-              var lng2 = jsonData.substring(35,43);
+              var lng2 = jsonData.substring(37,47);
             
             console.log(lat1);
             console.log(lat2);
             console.log(lng1);
             console.log(lng2);
             if(lat1!=lat2||lng1!=lng2){
-                var distancia = distance(lat1,lat2,lng1,lng2,'K'); 
+                var distancia = distance(lat1,lng1,lat2,lng2,'K');
                 distancia = Math.round(distancia * 1000);
+                console.log("dista"+distancia);
                 console.log(1);
                 console.log(lat1);
                 console.log(lat2);
@@ -423,5 +424,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 60000);
+}, 6000);
 
