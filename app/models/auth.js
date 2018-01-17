@@ -53,7 +53,21 @@ var Int64 = require('int64-native');
     return Math.floor(str) / casas;
 }
 
-
+function distance(lat1, lon1, lat2, lon2, unit) {
+    var radlat1 = Math.PI * lat1 / 180
+    var radlat2 = Math.PI * lat2 / 180
+    var radlon1 = Math.PI * lon1 / 180
+    var radlon2 = Math.PI * lon2 / 180
+    var theta = lon1 - lon2
+    var radtheta = Math.PI * theta / 180
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist)
+    dist = dist * 180 / Math.PI
+    dist = dist * 60 * 1.1515
+    if (unit == "K") { dist = dist * 1.609344 }
+    if (unit == "N") { dist = dist * 0.8684 }
+    return dist
+  }
 
   function convertfloat(str) {
     var float = 0, sign, order, mantiss,exp,
@@ -166,16 +180,85 @@ if (lathex != 0 || lnghex != 0){
         if (status[0]=='2'&&status[1]=='0'){
             if(status[2]=='0'&&status[3]=='2'){
             console.log("GPS");
-            device.push(
-                {
-                  device: devicename,
-                  latitude: lathex,
-                  longitude: lnghex,
-                  hour: hour,
-                  date: date,
-                  status: status,
-                  battery:battery
-                })
+            var contents = fs.readFile("./"+devicename+".json");
+            fs.readFile("./"+devicename+".json" , "utf8", function(err, data){
+
+                if(err){
+                  return console.log("Erro ao ler arquivo");
+                }
+                
+                var jsonData = JSON.parse(data); 
+                jsonData = JSON.stringify(jsonData);
+                console.log(jsonData);
+                
+              
+              var lat1 = lathex;
+              var lat2 = jsonData.substring(20,28);
+              var lng1 = lnghex;
+              var lng2 = jsonData.substring(35,43);
+            
+            console.log(lat1);
+            console.log(lat2);
+            console.log(lng1);
+            console.log(lng2);
+            if(lat1!=lat2||lng1!=lng2){
+                var distancia = distance(lat1,lat2,lng1,lng2,'K'); 
+                distancia = Math.round(distancia * 1000);
+                console.log(1);
+                console.log(lat1);
+                console.log(lat2);
+                console.log(lng1);
+                console.log(lng2);
+                if(distancia>30){
+                    device.push(
+                        {
+                          device: devicename,
+                          latitude: lathex,
+                          longitude: lnghex,
+                          hour: hour,
+                          date: date,
+                          status: status,
+                          battery:battery
+                        })
+                        
+                        console.log(2);
+                        console.log(lat1);
+                        console.log(lat2);
+                        console.log(lng1);
+                        console.log(lng2);
+
+                        var obj = {
+                            location: [{lat:lathex , lng:lnghex}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile(devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            }); 
+                         
+                }else{
+                    var obj = {
+                        location: [{lat:lathex , lng:lnghex}]
+                     };
+                     var json = JSON.stringify(obj);
+                     
+                        fs.writeFile(devicename+".json", json, function(err) {
+                        if(err) {
+                            console.log(err);
+                        } 
+                        }); 
+                     
+                    console.log(3);
+                    console.log(lat1);
+                    console.log(lat2);
+                    console.log(lng1);
+                    console.log(lng2);
+                }
+            }
+            
+        });
             }else{  
                   // Configure API parameters
                   const params = {
@@ -238,6 +321,9 @@ if (lathex != 0 || lnghex != 0){
                   status: status,
                   battery:battery
                 })
+            
+
+            
             }else{
                 // Configure API parameters
                 const params = {
