@@ -191,11 +191,18 @@ if (lathex != 0 || lnghex != 0){
                 jsonData = JSON.stringify(jsonData);
                 console.log(jsonData);
                 
-              
+              var indexlat = jsonData.indexOf('lat');
+              var indexlng = jsonData.indexOf('lng');
+              var indexvir = jsonData.indexOf(',');
+              var indexchave = jsonData.indexOf('}');
+              console.log(indexlat);
+              console.log(indexlng);
+              console.log(indexvir);
+              console.log(indexchave);
               var lat1 = lathex;
-              var lat2 = jsonData.substring(20,30);
+              var lat2 = jsonData.substring(indexlat+5,indexvir);
               var lng1 = lnghex;
-              var lng2 = jsonData.substring(37,47);
+              var lng2 = jsonData.substring(indexlng+5,indexchave);
             
             console.log(lat1);
             console.log(lat2);
@@ -210,7 +217,7 @@ if (lathex != 0 || lnghex != 0){
                 console.log(lat2);
                 console.log(lng1);
                 console.log(lng2);
-                if(distancia>30){
+                if(distancia>65){
                     device.push(
                         {
                           device: devicename,
@@ -424,5 +431,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 60000);
+}, 6000);
 
