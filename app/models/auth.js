@@ -137,6 +137,7 @@ function coordenat_data(device_id){
         console.log(lathex);
         console.log(lnghex);
         battery = parseInt('0x'+battery);
+        battery = battery+"%";
         var latstatus13 = a.substring(index3+28,index3+40);
         var lngstatus13 = a.substring(index3+56,index3+63);
         latstatus13 = parseFloat(latstatus13);
