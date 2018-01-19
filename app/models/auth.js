@@ -268,7 +268,7 @@ if (lathex != 0 || lnghex != 0){
             }
             
         });
-            }else{  
+            }/*else{  
                   // Configure API parameters
                   const params = {
                    // considerIp: "false",
@@ -315,7 +315,7 @@ if (lathex != 0 || lnghex != 0){
                            }
 
                   });
-            }
+            }*/
         }
         if (status[0]=='2'&&status[1]=='1'){
             if(status[2]=='0'&&status[3]=='2'){
@@ -333,7 +333,7 @@ if (lathex != 0 || lnghex != 0){
             
 
             
-            }else{
+            }/*else{
                 // Configure API parameters
                 const params = {
                     // considerIp: "false",
@@ -383,20 +383,9 @@ if (lathex != 0 || lnghex != 0){
                      
                    });
                 
-            }
+            }*/
         }
-        if (status[0]=='1'&&status[1]=='3'){
-            device.push(
-                {
-                  device: devicename,
-                  latitude: lathex,
-                  longitude: lnghex,
-                  hour: hour,
-                  date: date,
-                  status: status,
-                  battery:battery
-                })
-        }
+        
         if (status[0]=='1'&&status[1]=='1'){
             console.log("ON");
             device.push(
@@ -411,21 +400,34 @@ if (lathex != 0 || lnghex != 0){
                 })
                 
         }
-        if (status[0]=='1'&&status[1]=='2'){
-            console.log("OFF");
-            device.push(
-                {
-                  device: devicename,
-                  latitude: lathex,
-                  longitude: lnghex,
-                  hour: hour,
-                  date: date,
-                  status: status,
-                  battery:battery
-                })
-                
-        }
+        
     }
+
+    if (status[0]=='1'&&status[1]=='3'){
+        device.push(
+            {
+              device: devicename,
+              latitude: lathex,
+              longitude: lnghex,
+              hour: hour,
+              date: date,
+              status: status,
+              battery:battery
+            })
+    }
+    if (status[0]=='1'&&status[1]=='2'){
+        console.log("OFF");
+        device.push(
+            {
+              device: devicename,
+              latitude: lathex,
+              longitude: lnghex,
+              hour: hour,
+              date: date,
+              status: status,
+              battery:battery
+            })
+            }
     })
 }
 
