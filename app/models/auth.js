@@ -6,6 +6,7 @@ var unixTime = require('unix-time');
 const geolocation = require ('google-geolocation') ({
     key: 'AIzaSyB7dhi_XOHuYK5nq0NSkUxfgTqwIU2VIt4'
   });
+  
 var strftime = require('strftime');
 var request = require('request-promise');
 var Int64 = require('int64-native');
@@ -26,8 +27,7 @@ var Int64 = require('int64-native');
       var device_idstring;
       var device_id;
       var indexdeviceid;
-
-
+      
     request(
     {
         url : "https://backend.sigfox.com/api/devicetypes",
@@ -93,7 +93,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     }
     return float*sign;
 }
-//(convertfloat(str));
+
 
 
 function get_message(device_id){
@@ -146,6 +146,9 @@ function coordenat_data(device_id){
         if(status[3]=='5'){
             lathex = 0,0;
             lnghex = 0,0;
+            battery = data.substring(5,6);
+            battery = parseInt('0x'+battery);
+            battery = battery+"%";
         }else{
             lathex = convertfloat(lathex);
             lnghex = convertfloat(lnghex);
@@ -160,29 +163,29 @@ function coordenat_data(device_id){
         console.log("Mac:"+mac);
         console.log("rssi:"+ rssi);
         //console.log(device);
-        
-        
-        //firebase
         lathex = arredondar(lathex, 6);
         lnghex = arredondar(lnghex, 6);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
-    //GET DATA FROM API PYTHON
-    
+        
+        
+        
+   
+    //firebase
     var device = firebase.database().ref(devicename);
     const db = firebase.database();
     const deviceRef = firebase.database().ref(devicename);
     const query = deviceRef
                   .orderByChild(devicename)
                   .limitToFirst(2)
-
+      
                   
 if (lathex != 0 || lnghex != 0){
         if (status[0]=='2'&&status[1]=='0'){
             if(status[2]=='0'&&status[3]=='2'){
             console.log("GPS");
-            var contents = fs.readFile("./"+devicename+".json");
-            fs.readFile("./"+devicename+".json" , "utf8", function(err, data){
+            var contents = fs.readFile("2002/"+devicename+".json");
+            fs.readFile("2002/"+devicename+".json" , "utf8", function(err, data){
 
                 if(err){
                   return console.log("Erro ao ler arquivo");
@@ -241,7 +244,7 @@ if (lathex != 0 || lnghex != 0){
                          };
                          var json = JSON.stringify(obj);
                          
-                            fs.writeFile(devicename+".json", json, function(err) {
+                            fs.writeFile("2002/"+devicename+".json", json, function(err) {
                             if(err) {
                                 console.log(err);
                             } 
@@ -253,7 +256,7 @@ if (lathex != 0 || lnghex != 0){
                      };
                      var json = JSON.stringify(obj);
                      
-                        fs.writeFile(devicename+".json", json, function(err) {
+                        fs.writeFile("2002/"+devicename+".json", json, function(err) {
                         if(err) {
                             console.log(err);
                         } 
@@ -268,7 +271,7 @@ if (lathex != 0 || lnghex != 0){
             }
             
         });
-            }/*else{  
+            /*else{  
                   // Configure API parameters
                   const params = {
                    // considerIp: "false",
@@ -317,75 +320,148 @@ if (lathex != 0 || lnghex != 0){
                   });
             }*/
         }
+        }
         if (status[0]=='2'&&status[1]=='1'){
             if(status[2]=='0'&&status[3]=='2'){
             console.log("GPSMOV");
-            device.push(
-                {
-                  device: devicename,
-                  latitude: lathex,
-                  longitude: lnghex,
-                  hour: hour,
-                  date: date,
-                  status: status,
-                  battery:battery
-                })
-            
+            var contents = fs.readFile("2102/"+devicename+".json");
+            fs.readFile("2102/"+devicename+".json" , "utf8", function(err, data){
 
-            
-            }/*else{
-                // Configure API parameters
-                const params = {
-                    // considerIp: "false",
-                     wifiAccessPoints: [
-                       {
-                         macAddress: mac,
-                         signalStrength: rssi,
-                         signalToNoiseRatio: 0
-                        
-                       }
-                     ]
-                   };
-                   console.log(params);
-                   // Get data
-                   geolocation (params, (err, data) => {
-                     if (err) {
-                       console.log (err);
-                       return;
-                     }
-                     wifilocation = JSON.stringify(data);
-                     var indexwifilat = wifilocation.indexOf('lat');
-                     var indexwifilng = wifilocation.indexOf('lng');
-                     var indexwifiaccuracy = wifilocation.indexOf('accuracy');
-                     var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                     var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                     var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
-                     lat2006 = parseFloat(lat2006);
-                     lng2006 = parseFloat(lng2006);
-                     
-                     console.log (wifilocation);
-                     console.log (lat2006);
-                     console.log (lng2006);
-                     console.log (accuracy);
-                     if(accuracy<='10000'){
-                         device.push(
-                             {
-                               device: devicename,
-                               latitude: lat2006,
-                               longitude: lng2006,
-                               hour: hour,
-                               date: date,
-                               status: status,
-                               battery:0
-                             })
-                            }
- 
-                     
-                   });
+                if(err){
+                  return console.log("Erro ao ler arquivo");
+                }
                 
+                var jsonData = JSON.parse(data); 
+                jsonData = JSON.stringify(jsonData);
+                console.log(jsonData);
+                
+              var indexlat = jsonData.indexOf('lat');
+              var indexlng = jsonData.indexOf('lng');
+              var indexvir = jsonData.indexOf(',');
+              var indexchave = jsonData.indexOf('}');
+              console.log(indexlat);
+              console.log(indexlng);
+              console.log(indexvir);
+              console.log(indexchave);
+              var lat1 = lathex;
+              var lat2 = jsonData.substring(indexlat+5,indexvir);
+              var lng1 = lnghex;
+              var lng2 = jsonData.substring(indexlng+5,indexchave);
+            
+            console.log(lat1);
+            console.log(lat2);
+            console.log(lng1);
+            console.log(lng2);
+            if(lat1!=lat2||lng1!=lng2){
+                var distancia = distance(lat1,lng1,lat2,lng2,'K');
+                distancia = Math.round(distancia * 1000);
+                console.log("dista"+distancia);
+                console.log(1);
+                console.log(lat1);
+                console.log(lat2);
+                console.log(lng1);
+                console.log(lng2);
+                if(distancia>65){
+                    device.push(
+                        {
+                          device: devicename,
+                          latitude: lathex,
+                          longitude: lnghex,
+                          hour: hour,
+                          date: date,
+                          status: status,
+                          battery:battery
+                        })
+                        
+                        console.log(2);
+                        console.log(lat1);
+                        console.log(lat2);
+                        console.log(lng1);
+                        console.log(lng2);
+
+                        var obj = {
+                            location: [{lat:lathex , lng:lnghex}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            }); 
+                         
+                }else{
+                    var obj = {
+                        location: [{lat:lathex , lng:lnghex}]
+                     };
+                     var json = JSON.stringify(obj);
+                     
+                        fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                        if(err) {
+                            console.log(err);
+                        } 
+                        }); 
+                     
+                    console.log(3);
+                    console.log(lat1);
+                    console.log(lat2);
+                    console.log(lng1);
+                    console.log(lng2);
+                }
+            }
+            
+        });
+            /*else{  
+                  // Configure API parameters
+                  const params = {
+                   // considerIp: "false",
+                    wifiAccessPoints: [
+                      {
+                        macAddress: mac,
+                        signalStrength: rssi,
+                        signalToNoiseRatio: 0
+                       
+                      }
+                    ]
+                  };
+                  console.log(params);
+                  // Get data
+                  geolocation (params, (err, data) => {
+                    if (err) {
+                      console.log (err);
+                      return;
+                    }
+                    wifilocation = JSON.stringify(data);
+                    var indexwifilat = wifilocation.indexOf('lat');
+                    var indexwifilng = wifilocation.indexOf('lng');
+                    var indexwifiaccuracy = wifilocation.indexOf('accuracy');
+                    var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
+                    var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
+                    var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
+                    lat2006 = parseFloat(lat2006);
+                    lng2006 = parseFloat(lng2006);
+                    console.log (wifilocation);
+                    console.log (lat2006);
+                    console.log (lng2006);
+                    console.log (accuracy);
+                    if(accuracy<='10000'){
+                        device.push(
+                            {
+                              device: devicename,
+                              latitude: lat2006,
+                              longitude: lng2006,
+                              hour: hour,
+                              date: date,
+                              status: status,
+                              battery:0
+                            })
+                           }
+
+                  });
             }*/
         }
-        
+        }
+       /* 
         if (status[0]=='1'&&status[1]=='1'){
             console.log("ON");
             device.push(
@@ -399,11 +475,13 @@ if (lathex != 0 || lnghex != 0){
                   battery:battery
                 })
                 
-        }
+        }*/
         
     }
-
+    /* 
     if (status[0]=='1'&&status[1]=='3'){
+        
+                
         device.push(
             {
               device: devicename,
@@ -414,7 +492,9 @@ if (lathex != 0 || lnghex != 0){
               status: status,
               battery:battery
             })
-    }
+        }
+    */
+       /*
     if (status[0]=='1'&&status[1]=='2'){
         console.log("OFF");
         device.push(
@@ -427,7 +507,7 @@ if (lathex != 0 || lnghex != 0){
               status: status,
               battery:battery
             })
-            }
+            }*/
     })
 }
 
@@ -435,4 +515,3 @@ if (lathex != 0 || lnghex != 0){
 setInterval( () =>{
 coordenat_data(device_id);
 }, 10000);
-
