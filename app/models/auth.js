@@ -248,7 +248,37 @@ if (lathex != 0 || lnghex != 0){
                             if(err) {
                                 console.log(err);
                             } 
-                            }); 
+                            });
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("13/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });  
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        }); 
                          
                 }else{
                     var obj = {
@@ -260,7 +290,37 @@ if (lathex != 0 || lnghex != 0){
                         if(err) {
                             console.log(err);
                         } 
-                        }); 
+                        });
+                        var obj = {
+                            location: [{lat:999 , lng:999}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile("13/"+devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            });  
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    }); 
                      
                     console.log(3);
                     console.log(lat1);
@@ -388,7 +448,38 @@ if (lathex != 0 || lnghex != 0){
                             if(err) {
                                 console.log(err);
                             } 
-                            }); 
+                            });
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("13/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });  
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });
+
                          
                 }else{
                     var obj = {
@@ -401,6 +492,37 @@ if (lathex != 0 || lnghex != 0){
                             console.log(err);
                         } 
                         }); 
+                        var obj = {
+                            location: [{lat:999 , lng:999}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile("13/"+devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            });  
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });
+
                      
                     console.log(3);
                     console.log(lat1);
@@ -461,53 +583,556 @@ if (lathex != 0 || lnghex != 0){
             }*/
         }
         }
-       /* 
+        
         if (status[0]=='1'&&status[1]=='1'){
-            console.log("ON");
-            device.push(
-                {
-                  device: devicename,
-                  latitude: lathex,
-                  longitude: lnghex,
-                  hour: hour,
-                  date: date,
-                  status: status,
-                  battery:battery
-                })
+        
                 
-        }*/
+            var contents = fs.readFile("11/"+devicename+".json");
+                fs.readFile("11/"+devicename+".json" , "utf8", function(err, data){
+    
+                    if(err){
+                      return console.log("Erro ao ler arquivo");
+                    }
+                    
+                    var jsonData = JSON.parse(data); 
+                    jsonData = JSON.stringify(jsonData);
+                    console.log(jsonData);
+                    
+                  var indexlat = jsonData.indexOf('lat');
+                  var indexlng = jsonData.indexOf('lng');
+                  var indexvir = jsonData.indexOf(',');
+                  var indexchave = jsonData.indexOf('}');
+                  console.log(indexlat);
+                  console.log(indexlng);
+                  console.log(indexvir);
+                  console.log(indexchave);
+                  var lat1 = lathex;
+                  var lat2 = jsonData.substring(indexlat+5,indexvir);
+                  var lng1 = lnghex;
+                  var lng2 = jsonData.substring(indexlng+5,indexchave);
+                
+                console.log(lat1);
+                console.log(lat2);
+                console.log(lng1);
+                console.log(lng2);
+                if(lat1!=lat2||lng1!=lng2){
+                    var distancia = distance(lat1,lng1,lat2,lng2,'K');
+                    distancia = Math.round(distancia * 1000);
+                    console.log("dista"+distancia);
+                    console.log(1);
+                    console.log(lat1);
+                    console.log(lat2);
+                    console.log(lng1);
+                    console.log(lng2);
+                    if(distancia>65){
+                        device.push(
+                            {
+                              device: devicename,
+                              latitude: lathex,
+                              longitude: lnghex,
+                              hour: hour,
+                              date: date,
+                              status: status,
+                              battery:battery
+                            })
+                            
+                            console.log(2);
+                            console.log(lat1);
+                            console.log(lat2);
+                            console.log(lng1);
+                            console.log(lng2);
+    
+                            var obj = {
+                                location: [{lat:lathex , lng:lnghex}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                }); 
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("13/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });  
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });
+                                        
+                             
+                    }else{
+                        var obj = {
+                            location: [{lat:lathex , lng:lnghex}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile("11/"+devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            }); 
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("13/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });  
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });
+                                    
+                         
+                        console.log(3);
+                        console.log(lat1);
+                        console.log(lat2);
+                        console.log(lng1);
+                        console.log(lng2);
+                    }
+                }
+                
+            });
+                /*else{  
+                      // Configure API parameters
+                      const params = {
+                       // considerIp: "false",
+                        wifiAccessPoints: [
+                          {
+                            macAddress: mac,
+                            signalStrength: rssi,
+                            signalToNoiseRatio: 0
+                           
+                          }
+                        ]
+                      };
+                      console.log(params);
+                      // Get data
+                      geolocation (params, (err, data) => {
+                        if (err) {
+                          console.log (err);
+                          return;
+                        }
+                        wifilocation = JSON.stringify(data);
+                        var indexwifilat = wifilocation.indexOf('lat');
+                        var indexwifilng = wifilocation.indexOf('lng');
+                        var indexwifiaccuracy = wifilocation.indexOf('accuracy');
+                        var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
+                        var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
+                        var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
+                        lat2006 = parseFloat(lat2006);
+                        lng2006 = parseFloat(lng2006);
+                        console.log (wifilocation);
+                        console.log (lat2006);
+                        console.log (lng2006);
+                        console.log (accuracy);
+                        if(accuracy<='10000'){
+                            device.push(
+                                {
+                                  device: devicename,
+                                  latitude: lat2006,
+                                  longitude: lng2006,
+                                  hour: hour,
+                                  date: date,
+                                  status: status,
+                                  battery:0
+                                })
+                               }
+    
+                      });
+                }*/
+            }
         
     }
-    /* 
+     
     if (status[0]=='1'&&status[1]=='3'){
         
                 
-        device.push(
-            {
-              device: devicename,
-              latitude: lathex,
-              longitude: lnghex,
-              hour: hour,
-              date: date,
-              status: status,
-              battery:battery
-            })
-        }
-    */
-       /*
-    if (status[0]=='1'&&status[1]=='2'){
-        console.log("OFF");
-        device.push(
-            {
-              device: devicename,
-              latitude: lathex,
-              longitude: lnghex,
-              hour: hour,
-              date: date,
-              status: status,
-              battery:battery
-            })
+        var contents = fs.readFile("13/"+devicename+".json");
+            fs.readFile("13/"+devicename+".json" , "utf8", function(err, data){
+
+                if(err){
+                  return console.log("Erro ao ler arquivo");
+                }
+                
+                var jsonData = JSON.parse(data); 
+                jsonData = JSON.stringify(jsonData);
+                console.log(jsonData);
+                
+              var indexlat = jsonData.indexOf('lat');
+              var indexlng = jsonData.indexOf('lng');
+              var indexvir = jsonData.indexOf(',');
+              var indexchave = jsonData.indexOf('}');
+              console.log(indexlat);
+              console.log(indexlng);
+              console.log(indexvir);
+              console.log(indexchave);
+              var lat1 = lathex;
+              var lat2 = jsonData.substring(indexlat+5,indexvir);
+              var lng1 = lnghex;
+              var lng2 = jsonData.substring(indexlng+5,indexchave);
+            
+            console.log(lat1);
+            console.log(lat2);
+            console.log(lng1);
+            console.log(lng2);
+            if(lat1!=lat2||lng1!=lng2){
+                var distancia = distance(lat1,lng1,lat2,lng2,'K');
+                distancia = Math.round(distancia * 1000);
+                console.log("dista"+distancia);
+                console.log(1);
+                console.log(lat1);
+                console.log(lat2);
+                console.log(lng1);
+                console.log(lng2);
+                if(distancia>65){
+                    device.push(
+                        {
+                          device: devicename,
+                          latitude: lathex,
+                          longitude: lnghex,
+                          hour: hour,
+                          date: date,
+                          status: status,
+                          battery:battery
+                        })
+                        
+                        console.log(2);
+                        console.log(lat1);
+                        console.log(lat2);
+                        console.log(lng1);
+                        console.log(lng2);
+
+                        var obj = {
+                            location: [{lat:lathex , lng:lnghex}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile("13/"+devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            }); 
+                             
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });
+                         
+                }else{
+                    var obj = {
+                        location: [{lat:lathex , lng:lnghex}]
+                     };
+                     var json = JSON.stringify(obj);
+                     
+                        fs.writeFile("13/"+devicename+".json", json, function(err) {
+                        if(err) {
+                            console.log(err);
+                        } 
+                        }); 
+                          
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });
+                     
+                    console.log(3);
+                    console.log(lat1);
+                    console.log(lat2);
+                    console.log(lng1);
+                    console.log(lng2);
+                }
+            }
+            
+        });
+            /*else{  
+                  // Configure API parameters
+                  const params = {
+                   // considerIp: "false",
+                    wifiAccessPoints: [
+                      {
+                        macAddress: mac,
+                        signalStrength: rssi,
+                        signalToNoiseRatio: 0
+                       
+                      }
+                    ]
+                  };
+                  console.log(params);
+                  // Get data
+                  geolocation (params, (err, data) => {
+                    if (err) {
+                      console.log (err);
+                      return;
+                    }
+                    wifilocation = JSON.stringify(data);
+                    var indexwifilat = wifilocation.indexOf('lat');
+                    var indexwifilng = wifilocation.indexOf('lng');
+                    var indexwifiaccuracy = wifilocation.indexOf('accuracy');
+                    var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
+                    var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
+                    var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
+                    lat2006 = parseFloat(lat2006);
+                    lng2006 = parseFloat(lng2006);
+                    console.log (wifilocation);
+                    console.log (lat2006);
+                    console.log (lng2006);
+                    console.log (accuracy);
+                    if(accuracy<='10000'){
+                        device.push(
+                            {
+                              device: devicename,
+                              latitude: lat2006,
+                              longitude: lng2006,
+                              hour: hour,
+                              date: date,
+                              status: status,
+                              battery:0
+                            })
+                           }
+
+                  });
             }*/
+        }
+    
+       
+    
+        if (status[0]=='1'&&status[1]=='2'){
+        
+                
+            var contents = fs.readFile("12/"+devicename+".json");
+                fs.readFile("12/"+devicename+".json" , "utf8", function(err, data){
+    
+                    if(err){
+                      return console.log("Erro ao ler arquivo");
+                    }
+                    
+                    var jsonData = JSON.parse(data); 
+                    jsonData = JSON.stringify(jsonData);
+                    console.log(jsonData);
+                    
+                  var indexlat = jsonData.indexOf('lat');
+                  var indexlng = jsonData.indexOf('lng');
+                  var indexvir = jsonData.indexOf(',');
+                  var indexchave = jsonData.indexOf('}');
+                  console.log(indexlat);
+                  console.log(indexlng);
+                  console.log(indexvir);
+                  console.log(indexchave);
+                  var lat1 = lathex;
+                  var lat2 = jsonData.substring(indexlat+5,indexvir);
+                  var lng1 = lnghex;
+                  var lng2 = jsonData.substring(indexlng+5,indexchave);
+                
+                console.log(lat1);
+                console.log(lat2);
+                console.log(lng1);
+                console.log(lng2);
+                if(lat1!=lat2||lng1!=lng2){
+                    var distancia = distance(lat1,lng1,lat2,lng2,'K');
+                    distancia = Math.round(distancia * 1000);
+                    console.log("dista"+distancia);
+                    console.log(1);
+                    console.log(lat1);
+                    console.log(lat2);
+                    console.log(lng1);
+                    console.log(lng2);
+                    if(distancia>65){
+                        device.push(
+                            {
+                              device: devicename,
+                              latitude: lathex,
+                              longitude: lnghex,
+                              hour: hour,
+                              date: date,
+                              status: status,
+                              battery:battery
+                            })
+                            
+                            console.log(2);
+                            console.log(lat1);
+                            console.log(lat2);
+                            console.log(lng1);
+                            console.log(lng2);
+    
+                            var obj = {
+                                location: [{lat:lathex , lng:lnghex}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("12/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                }); 
+                                var obj = {
+                                    location: [{lat:999 , lng:999}]
+                                 };
+                                 var json = JSON.stringify(obj);
+                                 
+                                    fs.writeFile("13/"+devicename+".json", json, function(err) {
+                                    if(err) {
+                                        console.log(err);
+                                    } 
+                                    });  
+                                   
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });
+                             
+                    }else{
+                        var obj = {
+                            location: [{lat:lathex , lng:lnghex}]
+                         };
+                         var json = JSON.stringify(obj);
+                         
+                            fs.writeFile("12/"+devicename+".json", json, function(err) {
+                            if(err) {
+                                console.log(err);
+                            } 
+                            }); 
+                            var obj = {
+                                location: [{lat:999 , lng:999}]
+                             };
+                             var json = JSON.stringify(obj);
+                             
+                                fs.writeFile("13/"+devicename+".json", json, function(err) {
+                                if(err) {
+                                    console.log(err);
+                                } 
+                                });  
+                               
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("11/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });
+                         
+                        console.log(3);
+                        console.log(lat1);
+                        console.log(lat2);
+                        console.log(lng1);
+                        console.log(lng2);
+                    }
+                }
+                
+            });
+                /*else{  
+                      // Configure API parameters
+                      const params = {
+                       // considerIp: "false",
+                        wifiAccessPoints: [
+                          {
+                            macAddress: mac,
+                            signalStrength: rssi,
+                            signalToNoiseRatio: 0
+                           
+                          }
+                        ]
+                      };
+                      console.log(params);
+                      // Get data
+                      geolocation (params, (err, data) => {
+                        if (err) {
+                          console.log (err);
+                          return;
+                        }
+                        wifilocation = JSON.stringify(data);
+                        var indexwifilat = wifilocation.indexOf('lat');
+                        var indexwifilng = wifilocation.indexOf('lng');
+                        var indexwifiaccuracy = wifilocation.indexOf('accuracy');
+                        var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
+                        var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
+                        var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
+                        lat2006 = parseFloat(lat2006);
+                        lng2006 = parseFloat(lng2006);
+                        console.log (wifilocation);
+                        console.log (lat2006);
+                        console.log (lng2006);
+                        console.log (accuracy);
+                        if(accuracy<='10000'){
+                            device.push(
+                                {
+                                  device: devicename,
+                                  latitude: lat2006,
+                                  longitude: lng2006,
+                                  hour: hour,
+                                  date: date,
+                                  status: status,
+                                  battery:0
+                                })
+                               }
+    
+                      });
+                }*/
+            }
     })
 }
 
