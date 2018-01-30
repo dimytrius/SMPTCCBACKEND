@@ -129,7 +129,7 @@ function coordenat_data(device_id){
         var index3 = a.indexOf('computedLocation');
         var hourcrip = a.substring(index2+7,index2+17);
         var hour = strftime(' %H:%M:%S', unixTime(new Date(hourcrip)));
-        var date = strftime('%b %d, %Y', unixTime(new Date(hourcrip)));
+        var date = strftime('%F', unixTime(new Date(hourcrip)));
         var lathex =  "0x"+data.substring(4,12);
         var lnghex = "0x"+data.substring(12,20);
         var battery = data.substring(22,24);
