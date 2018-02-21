@@ -162,7 +162,6 @@ function coordenat_data(device_id){
         console.log("battery:"+ battery);
         console.log("Mac:"+mac);
         console.log("rssi:"+ rssi);
-        //console.log(device);
         lathex = arredondar(lathex, 6);
         lnghex = arredondar(lnghex, 6);
         console.log("Lat:"+ lathex);
@@ -278,7 +277,17 @@ if (lathex != 0 || lnghex != 0){
                                         if(err) {
                                             console.log(err);
                                         } 
-                                        }); 
+                                        });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });  
                          
                 }else{
                     var obj = {
@@ -320,7 +329,17 @@ if (lathex != 0 || lnghex != 0){
                                     if(err) {
                                         console.log(err);
                                     } 
-                                    }); 
+                                    });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });  
                      
                     console.log(3);
                     console.log(lat1);
@@ -330,55 +349,7 @@ if (lathex != 0 || lnghex != 0){
                 }
             }
             
-        });
-            /*else{  
-                  // Configure API parameters
-                  const params = {
-                   // considerIp: "false",
-                    wifiAccessPoints: [
-                      {
-                        macAddress: mac,
-                        signalStrength: rssi,
-                        signalToNoiseRatio: 0
-                       
-                      }
-                    ]
-                  };
-                  console.log(params);
-                  // Get data
-                  geolocation (params, (err, data) => {
-                    if (err) {
-                      console.log (err);
-                      return;
-                    }
-                    wifilocation = JSON.stringify(data);
-                    var indexwifilat = wifilocation.indexOf('lat');
-                    var indexwifilng = wifilocation.indexOf('lng');
-                    var indexwifiaccuracy = wifilocation.indexOf('accuracy');
-                    var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                    var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                    var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
-                    lat2006 = parseFloat(lat2006);
-                    lng2006 = parseFloat(lng2006);
-                    console.log (wifilocation);
-                    console.log (lat2006);
-                    console.log (lng2006);
-                    console.log (accuracy);
-                    if(accuracy<='10000'){
-                        device.push(
-                            {
-                              device: devicename,
-                              latitude: lat2006,
-                              longitude: lng2006,
-                              hour: hour,
-                              date: date,
-                              status: status,
-                              battery:0
-                            })
-                           }
-
-                  });
-            }*/
+        });    
         }
         }
         if (status[0]=='2'&&status[1]=='1'){
@@ -386,7 +357,16 @@ if (lathex != 0 || lnghex != 0){
             console.log("GPSMOV");
             var contents = fs.readFile("2102/"+devicename+".json");
             fs.readFile("2102/"+devicename+".json" , "utf8", function(err, data){
-
+                var obj = {
+                    location: [{lat:999 , lng:999}]
+                 };
+                 var json = JSON.stringify(obj);
+                 
+                    fs.writeFile("11/"+devicename+".json", json, function(err) {
+                    if(err) {
+                        console.log(err);
+                    } 
+                    }); 
                 if(err){
                   return console.log("Erro ao ler arquivo");
                 }
@@ -479,6 +459,16 @@ if (lathex != 0 || lnghex != 0){
                                             console.log(err);
                                         } 
                                         });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            }); 
 
                          
                 }else{
@@ -522,6 +512,16 @@ if (lathex != 0 || lnghex != 0){
                                         console.log(err);
                                     } 
                                     });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        }); 
 
                      
                     console.log(3);
@@ -533,54 +533,6 @@ if (lathex != 0 || lnghex != 0){
             }
             
         });
-            /*else{  
-                  // Configure API parameters
-                  const params = {
-                   // considerIp: "false",
-                    wifiAccessPoints: [
-                      {
-                        macAddress: mac,
-                        signalStrength: rssi,
-                        signalToNoiseRatio: 0
-                       
-                      }
-                    ]
-                  };
-                  console.log(params);
-                  // Get data
-                  geolocation (params, (err, data) => {
-                    if (err) {
-                      console.log (err);
-                      return;
-                    }
-                    wifilocation = JSON.stringify(data);
-                    var indexwifilat = wifilocation.indexOf('lat');
-                    var indexwifilng = wifilocation.indexOf('lng');
-                    var indexwifiaccuracy = wifilocation.indexOf('accuracy');
-                    var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                    var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                    var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
-                    lat2006 = parseFloat(lat2006);
-                    lng2006 = parseFloat(lng2006);
-                    console.log (wifilocation);
-                    console.log (lat2006);
-                    console.log (lng2006);
-                    console.log (accuracy);
-                    if(accuracy<='10000'){
-                        device.push(
-                            {
-                              device: devicename,
-                              latitude: lat2006,
-                              longitude: lng2006,
-                              hour: hour,
-                              date: date,
-                              status: status,
-                              battery:0
-                            })
-                           }
-
-                  });
-            }*/
         }
         }
         
@@ -672,6 +624,26 @@ if (lathex != 0 || lnghex != 0){
                                             console.log(err);
                                         } 
                                         });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });
+                                            var obj = {
+                                                location: [{lat:999 , lng:999}]
+                                             };
+                                             var json = JSON.stringify(obj);
+                                             
+                                                fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                                if(err) {
+                                                    console.log(err);
+                                                } 
+                                                });  
                                         
                              
                     }else{
@@ -705,6 +677,26 @@ if (lathex != 0 || lnghex != 0){
                                         console.log(err);
                                     } 
                                     });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });  
                                     
                          
                         console.log(3);
@@ -715,55 +707,7 @@ if (lathex != 0 || lnghex != 0){
                     }
                 }
                 
-            });
-                /*else{  
-                      // Configure API parameters
-                      const params = {
-                       // considerIp: "false",
-                        wifiAccessPoints: [
-                          {
-                            macAddress: mac,
-                            signalStrength: rssi,
-                            signalToNoiseRatio: 0
-                           
-                          }
-                        ]
-                      };
-                      console.log(params);
-                      // Get data
-                      geolocation (params, (err, data) => {
-                        if (err) {
-                          console.log (err);
-                          return;
-                        }
-                        wifilocation = JSON.stringify(data);
-                        var indexwifilat = wifilocation.indexOf('lat');
-                        var indexwifilng = wifilocation.indexOf('lng');
-                        var indexwifiaccuracy = wifilocation.indexOf('accuracy');
-                        var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                        var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                        var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
-                        lat2006 = parseFloat(lat2006);
-                        lng2006 = parseFloat(lng2006);
-                        console.log (wifilocation);
-                        console.log (lat2006);
-                        console.log (lng2006);
-                        console.log (accuracy);
-                        if(accuracy<='10000'){
-                            device.push(
-                                {
-                                  device: devicename,
-                                  latitude: lat2006,
-                                  longitude: lng2006,
-                                  hour: hour,
-                                  date: date,
-                                  status: status,
-                                  battery:0
-                                })
-                               }
-    
-                      });
-                }*/
+            });               
             }
         
     }
@@ -857,6 +801,26 @@ if (lathex != 0 || lnghex != 0){
                                             console.log(err);
                                         } 
                                         });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });
+                                            var obj = {
+                                                location: [{lat:999 , lng:999}]
+                                             };
+                                             var json = JSON.stringify(obj);
+                                             
+                                                fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                                if(err) {
+                                                    console.log(err);
+                                                } 
+                                                });  
                          
                 }else{
                     var obj = {
@@ -890,6 +854,26 @@ if (lathex != 0 || lnghex != 0){
                                         console.log(err);
                                     } 
                                     });
+                                    var obj = {
+                                        location: [{lat:999 , lng:999}]
+                                     };
+                                     var json = JSON.stringify(obj);
+                                     
+                                        fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                        if(err) {
+                                            console.log(err);
+                                        } 
+                                        });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });  
                      
                     console.log(3);
                     console.log(lat1);
@@ -900,54 +884,6 @@ if (lathex != 0 || lnghex != 0){
             }
             
         });
-            /*else{  
-                  // Configure API parameters
-                  const params = {
-                   // considerIp: "false",
-                    wifiAccessPoints: [
-                      {
-                        macAddress: mac,
-                        signalStrength: rssi,
-                        signalToNoiseRatio: 0
-                       
-                      }
-                    ]
-                  };
-                  console.log(params);
-                  // Get data
-                  geolocation (params, (err, data) => {
-                    if (err) {
-                      console.log (err);
-                      return;
-                    }
-                    wifilocation = JSON.stringify(data);
-                    var indexwifilat = wifilocation.indexOf('lat');
-                    var indexwifilng = wifilocation.indexOf('lng');
-                    var indexwifiaccuracy = wifilocation.indexOf('accuracy');
-                    var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                    var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                    var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
-                    lat2006 = parseFloat(lat2006);
-                    lng2006 = parseFloat(lng2006);
-                    console.log (wifilocation);
-                    console.log (lat2006);
-                    console.log (lng2006);
-                    console.log (accuracy);
-                    if(accuracy<='10000'){
-                        device.push(
-                            {
-                              device: devicename,
-                              latitude: lat2006,
-                              longitude: lng2006,
-                              hour: hour,
-                              date: date,
-                              status: status,
-                              battery:0
-                            })
-                           }
-
-                  });
-            }*/
         }
     
        
@@ -1041,6 +977,26 @@ if (lathex != 0 || lnghex != 0){
                                                 console.log(err);
                                             } 
                                             });
+                                            var obj = {
+                                                location: [{lat:999 , lng:999}]
+                                             };
+                                             var json = JSON.stringify(obj);
+                                             
+                                                fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                                if(err) {
+                                                    console.log(err);
+                                                } 
+                                                });
+                                                var obj = {
+                                                    location: [{lat:999 , lng:999}]
+                                                 };
+                                                 var json = JSON.stringify(obj);
+                                                 
+                                                    fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                                    if(err) {
+                                                        console.log(err);
+                                                    } 
+                                                    });  
                              
                     }else{
                         var obj = {
@@ -1074,6 +1030,26 @@ if (lathex != 0 || lnghex != 0){
                                             console.log(err);
                                         } 
                                         });
+                                        var obj = {
+                                            location: [{lat:999 , lng:999}]
+                                         };
+                                         var json = JSON.stringify(obj);
+                                         
+                                            fs.writeFile("2102/"+devicename+".json", json, function(err) {
+                                            if(err) {
+                                                console.log(err);
+                                            } 
+                                            });
+                                            var obj = {
+                                                location: [{lat:999 , lng:999}]
+                                             };
+                                             var json = JSON.stringify(obj);
+                                             
+                                                fs.writeFile("2002/"+devicename+".json", json, function(err) {
+                                                if(err) {
+                                                    console.log(err);
+                                                } 
+                                                });  
                          
                         console.log(3);
                         console.log(lat1);
@@ -1083,55 +1059,7 @@ if (lathex != 0 || lnghex != 0){
                     }
                 }
                 
-            });
-                /*else{  
-                      // Configure API parameters
-                      const params = {
-                       // considerIp: "false",
-                        wifiAccessPoints: [
-                          {
-                            macAddress: mac,
-                            signalStrength: rssi,
-                            signalToNoiseRatio: 0
-                           
-                          }
-                        ]
-                      };
-                      console.log(params);
-                      // Get data
-                      geolocation (params, (err, data) => {
-                        if (err) {
-                          console.log (err);
-                          return;
-                        }
-                        wifilocation = JSON.stringify(data);
-                        var indexwifilat = wifilocation.indexOf('lat');
-                        var indexwifilng = wifilocation.indexOf('lng');
-                        var indexwifiaccuracy = wifilocation.indexOf('accuracy');
-                        var lat2006 = wifilocation.substring(indexwifilat+5,indexwifilat+15);
-                        var lng2006 = wifilocation.substring(indexwifilng+5,indexwifilng+15);
-                        var accuracy = wifilocation.substring(indexwifiaccuracy+10,indexwifiaccuracy+15);
-                        lat2006 = parseFloat(lat2006);
-                        lng2006 = parseFloat(lng2006);
-                        console.log (wifilocation);
-                        console.log (lat2006);
-                        console.log (lng2006);
-                        console.log (accuracy);
-                        if(accuracy<='10000'){
-                            device.push(
-                                {
-                                  device: devicename,
-                                  latitude: lat2006,
-                                  longitude: lng2006,
-                                  hour: hour,
-                                  date: date,
-                                  status: status,
-                                  battery:0
-                                })
-                               }
-    
-                      });
-                }*/
+            });                
             }
     })
 }
@@ -1139,4 +1067,4 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 10000);
+}, 300);
