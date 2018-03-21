@@ -137,18 +137,22 @@ function coordenat_data(device_id){
         console.log(lathex);
         console.log(lnghex);
         battery = parseInt('0x'+battery);
-        battery = battery+"%";
+        battery = (battery/2);
+        battery = battery+"°C";
         var latstatus13 = a.substring(index3+28,index3+40);
         var lngstatus13 = a.substring(index3+56,index3+63);
         latstatus13 = parseFloat(latstatus13);
         lngstatus13 = parseFloat(lngstatus13);
         var status = data.substring(0,4);
-        if(status[3]=='5'){
+        if(status[3]=='3'){
             lathex = 0,0;
             lnghex = 0,0;
-            battery = data.substring(5,6);
+            battery = data.substring(4,6);
+             
+            //console.log ('Aqui'+battery);
             battery = parseInt('0x'+battery);
-            battery = battery+"%";
+            battery = (battery/2);
+            battery = battery+"°C";
         }else{
             lathex = convertfloat(lathex);
             lnghex = convertfloat(lnghex);
