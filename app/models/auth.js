@@ -119,6 +119,13 @@ function coordenat_data(device_id){
         var a = device.substring(index+7,tamanho);
         var index1 = a.indexOf('data');
         var data = a.substring(index1+9,index1+33);
+        var temperaturatcc = data.substring(19,21);
+        temperaturatcc = (parseInt('0x'+temperaturatcc))/2;
+        temperaturatcc = temperaturatcc+"°C";
+        var bateriatcc = data.substring(22,24);
+        var x = data.substring(4,8);
+        var y = data.substring(8,12);
+        var z = data.substring(12,16);
         var mac = a.substring(index1+13,index1+27);
         var batterymac = data.substring(index1+30,index1+31);
         var rssi = mac.substring(12,14);
@@ -136,6 +143,7 @@ function coordenat_data(device_id){
         console.log(battery);
         console.log(lathex);
         console.log(lnghex);
+        bateriatcc = parseInt('0x'+bateriatcc);
         battery = parseInt('0x'+battery);
         battery = (battery/2);
         battery = battery+"°C";
@@ -170,19 +178,40 @@ function coordenat_data(device_id){
         lnghex = arredondar(lnghex, 6);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
+        console.log('x,y,z',x+y+z);
+        console.log("bateria tcc"+bateriatcc);
+        console.log("temperaturatcc "+temperaturatcc);
         
         
         
    
     //firebase
-    var device = firebase.database().ref(devicename);
+    var device = firebase.database().ref("tcc/"+devicename);
     const db = firebase.database();
     const deviceRef = firebase.database().ref(devicename);
     const query = deviceRef
                   .orderByChild(devicename)
                   .limitToFirst(2)
       
-                  
+if (status[0]=='2'&&status[1]=='0'){
+    if(status[2]=='0'&&status[3]=='8'){
+        console.log("Acelerometro");
+        device.push(
+            {
+              device: devicename,
+              x: x,
+              y: y,
+              z: z,
+              hour: hour,
+              date: date,
+              status: status,
+              battery:bateriatcc,
+              temperature:temperaturatcc,
+            })
+    }
+}
+
+
 if (lathex != 0 || lnghex != 0){
         if (status[0]=='2'&&status[1]=='0'){
             if(status[2]=='0'&&status[3]=='2'){
