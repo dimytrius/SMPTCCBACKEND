@@ -14,15 +14,14 @@ var Int64 = require('int64-native');
     password = "da1d5d3a093ad05f59e7827c26b6a6af",
     auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
 
-    const config ={
-        apiKey: "AIzaSyC46odkupDof1kgyj780MOyiwQJBc5k3lU",
-        authDomain: "selftracking-39d34.firebaseapp.com",
-        databaseURL: "https://selftracking-39d34.firebaseio.com",
-        projectId: "selftracking-39d34",
-        storageBucket: "selftracking-39d34.appspot.com",
-        messagingSenderId: "671481167610"
+    var config = {
+        apiKey: "AIzaSyAHskLOIS27lJQWbnwEAd2xOCmJrr3bTKE",
+        authDomain: "tccfirebase-84cb9.firebaseapp.com",
+        databaseURL: "https://tccfirebase-84cb9.firebaseio.com",
+        projectId: "tccfirebase-84cb9",
+        storageBucket: "tccfirebase-84cb9.appspot.com",
+        messagingSenderId: "795670737989"
       };
-    
       firebase.initializeApp(config);
       var device_idstring;
       var device_id;
