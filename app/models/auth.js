@@ -145,6 +145,13 @@ function coordenat_data(device_id){
         x=hexToInt(x);
         y=hexToInt(y);
         z=hexToInt(z);
+        x= parseInt(x);
+        y= parseInt(y);
+        z= parseInt(z);
+        x = x*3.19;
+        y = y*3.19;
+        z = z*3.19;
+        console.log('x,y,z',x,y,z);
         var mac = a.substring(index1+13,index1+27);
         var batterymac = data.substring(index1+30,index1+31);
         var rssi = mac.substring(12,14);
@@ -197,7 +204,7 @@ function coordenat_data(device_id){
         lnghex = arredondar(lnghex, 6);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
-        console.log('x,y,z',x,y,z);
+        
         console.log("bateria tcc"+bateriatcc);
         console.log("temperaturatcc "+temperaturatcc);
         
