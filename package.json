@@ -28,6 +28,7 @@
     "node-datetime": "^2.0.3",
     "nodemon": "^1.14.3",
     "request-promise": "^4.2.2",
+    "s-binary": "0.0.13",
     "sendgrid": "^5.2.3",
     "sleep": "^5.1.1",
     "strftime": "^0.10.0",

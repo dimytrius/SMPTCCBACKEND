@@ -93,7 +93,21 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     return float*sign;
 }
 
-
+function hexToInt(hex) {
+    if (hex.length % 2 != 0) {
+        hex = "0" + hex;
+    }
+    var num = parseInt(hex, 16);
+    var maxVal = Math.pow(2, hex.length / 2 * 8);
+    
+    if (num > maxVal / 2 - 1) {
+        num = num - maxVal
+        
+    }
+    return num;
+    
+    
+}
 
 function get_message(device_id){
 
@@ -118,13 +132,19 @@ function coordenat_data(device_id){
         var a = device.substring(index+7,tamanho);
         var index1 = a.indexOf('data');
         var data = a.substring(index1+9,index1+33);
-        var temperaturatcc = data.substring(19,21);
+        var temperaturatcc = data.substring(18,20);
         temperaturatcc = (parseInt('0x'+temperaturatcc))/2;
         temperaturatcc = temperaturatcc+"°C";
         var bateriatcc = data.substring(22,24);
+        
+
         var x = data.substring(4,8);
         var y = data.substring(8,12);
         var z = data.substring(12,16);
+        console.log('x,y,z',x,y,z);
+        x=hexToInt(x);
+        y=hexToInt(y);
+        z=hexToInt(z);
         var mac = a.substring(index1+13,index1+27);
         var batterymac = data.substring(index1+30,index1+31);
         var rssi = mac.substring(12,14);
@@ -177,7 +197,7 @@ function coordenat_data(device_id){
         lnghex = arredondar(lnghex, 6);
         console.log("Lat:"+ lathex);
         console.log("lng:"+ lnghex);
-        console.log('x,y,z',x+y+z);
+        console.log('x,y,z',x,y,z);
         console.log("bateria tcc"+bateriatcc);
         console.log("temperaturatcc "+temperaturatcc);
         
@@ -185,7 +205,7 @@ function coordenat_data(device_id){
         
    
     //firebase
-    var device = firebase.database().ref("tcc/"+devicename);
+    var device = firebase.database().ref(devicename);
     const db = firebase.database();
     const deviceRef = firebase.database().ref(devicename);
     const query = deviceRef
@@ -1590,4 +1610,5 @@ if (lathex != 0 || lnghex != 0){
 
 setInterval( () =>{
 coordenat_data(device_id);
-}, 300);
+//}, 600000);
+}, 60000);
